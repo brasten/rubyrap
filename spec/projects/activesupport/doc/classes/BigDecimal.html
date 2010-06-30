@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: BigDecimal</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />BigDecimal</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../files/lib/active_support/core_ext/big_decimal/conversions_rb.html">lib/active_support/core_ext/big_decimal/conversions.rb</a>
+        </td>
+      </tr>
+    <tr>
+      <td>Parent:</td>
+      <td>
+        <a href="Object.html">
+Object
+         </a>
+     </td>
+   </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000095">to_formatted_s</a></li>
+  <li><a href="#M000096">to_s</a></li>
+  <li><a href="#M000094">to_yaml</a></li>
+  </ul>
+
+
+
+
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">YAML_TAG</td>
+    <td>=</td>
+    <td class="attr-value">'tag:yaml.org,2002:float'</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">YAML_MAPPING</td>
+    <td>=</td>
+    <td class="attr-value">{ 'Infinity' =&gt; '.Inf', '-Infinity' =&gt; '-.Inf', 'NaN' =&gt; '.NaN' }</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">DEFAULT_STRING_FORMAT</td>
+    <td>=</td>
+    <td class="attr-value">'F'</td>
+  </tr>
+  </table>
+
+
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000095"></a><b>to_formatted_s</b>(format = DEFAULT_STRING_FORMAT)
+  </div>
+<div class="aka">
+  This method is also aliased as
+  <a href="BigDecimal.html#M000096">to_s</a>
+</div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000095_source')" id="l_M000095_source">show source</a> ]</p>
+  <div id="M000095_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/big_decimal/conversions.rb, line 22</span>
+22:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_formatted_s</span>(<span class="ruby-identifier">format</span> = <span class="ruby-constant">DEFAULT_STRING_FORMAT</span>)
+23:     <span class="ruby-identifier">_original_to_s</span>(<span class="ruby-identifier">format</span>)
+24:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000096"></a><b>to_s</b>(format = DEFAULT_STRING_FORMAT)
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="BigDecimal.html#M000095">to_formatted_s</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000094"></a><b>to_yaml</b>(opts = {})
+  </div>
+  <div class="description">
+  <p>
+This emits the number without any scientific notation. This is better than
+self.to_f.<a href="BigDecimal.html#M000096">to_s</a> since it doesn&#8216;t
+lose precision.
+</p>
+<p>
+Note that reconstituting YAML floats to native floats may lose precision.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000094_source')" id="l_M000094_source">show source</a> ]</p>
+  <div id="M000094_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/big_decimal/conversions.rb, line 14</span>
+14:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_yaml</span>(<span class="ruby-identifier">opts</span> = {})
+15:     <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">quick_emit</span>(<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">opts</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">out</span><span class="ruby-operator">|</span>
+16:       <span class="ruby-identifier">string</span> = <span class="ruby-identifier">to_s</span>
+17:       <span class="ruby-identifier">out</span>.<span class="ruby-identifier">scalar</span>(<span class="ruby-constant">YAML_TAG</span>, <span class="ruby-constant">YAML_MAPPING</span>[<span class="ruby-identifier">string</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">string</span>, <span class="ruby-identifier">:plain</span>)
+18:     <span class="ruby-keyword kw">end</span>
+19:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

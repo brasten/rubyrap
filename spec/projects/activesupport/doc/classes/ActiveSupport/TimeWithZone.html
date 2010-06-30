@@ -1,0 +1,1293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActiveSupport::TimeWithZone</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActiveSupport::TimeWithZone</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/lib/active_support/time_with_zone_rb.html">lib/active_support/time_with_zone.rb</a>
+        </td>
+      </tr>
+    <tr>
+      <td>Parent:</td>
+      <td>
+        <a href="../Object.html">
+Object
+         </a>
+     </td>
+   </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+  <div class="description"><p>
+A <a href="../Time.html">Time</a>-like class that can represent a <a
+href="TimeWithZone.html#M000464">time</a> in any <a
+href="TimeWithZone.html#M000464">time</a> <a
+href="TimeWithZone.html#M000482">zone</a>. Necessary because standard Ruby
+<a href="../Time.html">Time</a> instances are limited to UTC and the
+system&#8216;s <tt>ENV[&#8216;TZ&#8217;]</tt> <a
+href="TimeWithZone.html#M000482">zone</a>.
+</p>
+<p>
+You shouldn&#8216;t ever need to create a <a
+href="TimeWithZone.html">TimeWithZone</a> instance directly via <tt><a
+href="TimeWithZone.html#M000463">new</a></tt> &#8212; instead, Rails
+provides the methods <tt>local</tt>, <tt>parse</tt>, <tt>at</tt> and
+<tt>now</tt> on <a href="TimeZone.html">TimeZone</a> instances, and <tt><a
+href="TimeWithZone.html#M000471">in_time_zone</a></tt> on <a
+href="../Time.html">Time</a> and <a href="../DateTime.html">DateTime</a>
+instances, for a more user-friendly syntax. Examples:
+</p>
+<pre>
+  Time.zone = 'Eastern Time (US &amp; Canada)'        # =&gt; 'Eastern Time (US &amp; Canada)'
+  Time.zone.local(2007, 2, 10, 15, 30, 45)        # =&gt; Sat, 10 Feb 2007 15:30:45 EST -05:00
+  Time.zone.parse('2007-02-01 15:30:45')          # =&gt; Sat, 10 Feb 2007 15:30:45 EST -05:00
+  Time.zone.at(1170361845)                        # =&gt; Sat, 10 Feb 2007 15:30:45 EST -05:00
+  Time.zone.now                                   # =&gt; Sun, 18 May 2008 13:07:55 EDT -04:00
+  Time.utc(2007, 2, 10, 20, 30, 45).in_time_zone  # =&gt; Sat, 10 Feb 2007 15:30:45 EST -05:00
+</pre>
+<p>
+See <a href="../Time.html">Time</a> and <a
+href="TimeZone.html">TimeZone</a> for further documentation of these
+methods.
+</p>
+<p>
+<a href="TimeWithZone.html">TimeWithZone</a> instances implement the same
+API as Ruby <a href="../Time.html">Time</a> instances, so that <a
+href="../Time.html">Time</a> and <a
+href="TimeWithZone.html">TimeWithZone</a> instances are interchangable.
+Examples:
+</p>
+<pre>
+  t = Time.zone.now                     # =&gt; Sun, 18 May 2008 13:27:25 EDT -04:00
+  t.hour                                # =&gt; 13
+  t.dst?                                # =&gt; true
+  t.utc_offset                          # =&gt; -14400
+  t.zone                                # =&gt; &quot;EDT&quot;
+  t.to_s(:rfc822)                       # =&gt; &quot;Sun, 18 May 2008 13:27:25 -0400&quot;
+  t + 1.day                             # =&gt; Mon, 19 May 2008 13:27:25 EDT -04:00
+  t.beginning_of_year                   # =&gt; Tue, 01 Jan 2008 00:00:00 EST -05:00
+  t &gt; Time.utc(1999)                    # =&gt; true
+  t.is_a?(Time)                         # =&gt; true
+  t.is_a?(ActiveSupport::TimeWithZone)  # =&gt; true
+</pre>
+</div>
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000500">+</a></li>
+  <li><a href="#M000501">-</a></li>
+  <li><a href="#M000494">&lt;=&gt;</a></li>
+  <li><a href="#M000513">acts_like_time?</a></li>
+  <li><a href="#M000504">advance</a></li>
+  <li><a href="#M000503">ago</a></li>
+  <li><a href="#M000486">as_json</a></li>
+  <li><a href="#M000495">between?</a></li>
+  <li><a href="#M000466">comparable_time</a></li>
+  <li><a href="#M000474">dst?</a></li>
+  <li><a href="#M000499">eql?</a></li>
+  <li><a href="#M000481">formatted_offset</a></li>
+  <li><a href="#M000516">freeze</a></li>
+  <li><a href="#M000498">future?</a></li>
+  <li><a href="#M000467">getgm</a></li>
+  <li><a href="#M000473">getlocal</a></li>
+  <li><a href="#M000468">getutc</a></li>
+  <li><a href="#M000477">gmt?</a></li>
+  <li><a href="#M000479">gmt_offset</a></li>
+  <li><a href="#M000469">gmtime</a></li>
+  <li><a href="#M000480">gmtoff</a></li>
+  <li><a href="#M000509">hash</a></li>
+  <li><a href="#M000488">httpdate</a></li>
+  <li><a href="#M000471">in_time_zone</a></li>
+  <li><a href="#M000483">inspect</a></li>
+  <li><a href="#M000514">is_a?</a></li>
+  <li><a href="#M000475">isdst</a></li>
+  <li><a href="#M000485">iso8601</a></li>
+  <li><a href="#M000515">kind_of?</a></li>
+  <li><a href="#M000472">localtime</a></li>
+  <li><a href="#M000517">marshal_dump</a></li>
+  <li><a href="#M000518">marshal_load</a></li>
+  <li><a href="#M000520">method_missing</a></li>
+  <li><a href="#M000462">name</a></li>
+  <li><a href="#M000463">new</a></li>
+  <li><a href="#M000496">past?</a></li>
+  <li><a href="#M000470">period</a></li>
+  <li><a href="#M000519">respond_to?</a></li>
+  <li><a href="#M000489">rfc2822</a></li>
+  <li><a href="#M000490">rfc822</a></li>
+  <li><a href="#M000502">since</a></li>
+  <li><a href="#M000493">strftime</a></li>
+  <li><a href="#M000464">time</a></li>
+  <li><a href="#M000506">to_a</a></li>
+  <li><a href="#M000512">to_datetime</a></li>
+  <li><a href="#M000507">to_f</a></li>
+  <li><a href="#M000492">to_formatted_s</a></li>
+  <li><a href="#M000508">to_i</a></li>
+  <li><a href="#M000491">to_s</a></li>
+  <li><a href="#M000511">to_time</a></li>
+  <li><a href="#M000487">to_yaml</a></li>
+  <li><a href="#M000497">today?</a></li>
+  <li><a href="#M000510">tv_sec</a></li>
+  <li><a href="#M000505">usec</a></li>
+  <li><a href="#M000465">utc</a></li>
+  <li><a href="#M000476">utc?</a></li>
+  <li><a href="#M000478">utc_offset</a></li>
+  <li><a href="#M000484">xmlschema</a></li>
+  <li><a href="#M000482">zone</a></li>
+  </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li>Comparable</li>
+</ul>
+
+
+
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>time_zone</td>
+    <td class='attr-desc'></td>
+  </tr>
+  </table>
+
+<div class="sectiontitle">Public Class methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000462"></a><b>name</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000462_source')" id="l_M000462_source">show source</a> ]</p>
+  <div id="M000462_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 35</span>
+35:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">name</span>
+36:       <span class="ruby-value str">'Time'</span> <span class="ruby-comment cmt"># Report class name as 'Time' to thwart type checking</span>
+37:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000463"></a><b>new</b>(utc_time, time_zone, local_time = nil, period = nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000463_source')" id="l_M000463_source">show source</a> ]</p>
+  <div id="M000463_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 42</span>
+42:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">utc_time</span>, <span class="ruby-identifier">time_zone</span>, <span class="ruby-identifier">local_time</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">period</span> = <span class="ruby-keyword kw">nil</span>)
+43:       <span class="ruby-ivar">@utc</span>, <span class="ruby-ivar">@time_zone</span>, <span class="ruby-ivar">@time</span> = <span class="ruby-identifier">utc_time</span>, <span class="ruby-identifier">time_zone</span>, <span class="ruby-identifier">local_time</span>
+44:       <span class="ruby-ivar">@period</span> = <span class="ruby-ivar">@utc</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">period</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">get_period_and_ensure_valid_local_time</span>
+45:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000500"></a><b>+</b>(other)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000500_source')" id="l_M000500_source">show source</a> ]</p>
+  <div id="M000500_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 199</span>
+199:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">+</span>(<span class="ruby-identifier">other</span>)
+200:       <span class="ruby-comment cmt"># If we're adding a Duration of variable length (i.e., years, months, days), move forward from #time,</span>
+201:       <span class="ruby-comment cmt"># otherwise move forward from #utc, for accuracy when moving across DST boundaries</span>
+202:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">duration_of_variable_length?</span>(<span class="ruby-identifier">other</span>)
+203:         <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">:+</span>, <span class="ruby-identifier">other</span>)
+204:       <span class="ruby-keyword kw">else</span>
+205:         <span class="ruby-identifier">result</span> = <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">acts_like?</span>(<span class="ruby-identifier">:date</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">since</span>(<span class="ruby-identifier">other</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">utc</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">other</span> <span class="ruby-keyword kw">rescue</span> <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">since</span>(<span class="ruby-identifier">other</span>)
+206:         <span class="ruby-identifier">result</span>.<span class="ruby-identifier">in_time_zone</span>(<span class="ruby-identifier">time_zone</span>)
+207:       <span class="ruby-keyword kw">end</span>
+208:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000501"></a><b>-</b>(other)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000501_source')" id="l_M000501_source">show source</a> ]</p>
+  <div id="M000501_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 210</span>
+210:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">-</span>(<span class="ruby-identifier">other</span>)
+211:       <span class="ruby-comment cmt"># If we're subtracting a Duration of variable length (i.e., years, months, days), move backwards from #time,</span>
+212:       <span class="ruby-comment cmt"># otherwise move backwards #utc, for accuracy when moving across DST boundaries</span>
+213:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">acts_like?</span>(<span class="ruby-identifier">:time</span>)
+214:         <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">to_f</span>
+215:       <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">duration_of_variable_length?</span>(<span class="ruby-identifier">other</span>)
+216:         <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">:-</span>, <span class="ruby-identifier">other</span>)
+217:       <span class="ruby-keyword kw">else</span>
+218:         <span class="ruby-identifier">result</span> = <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">acts_like?</span>(<span class="ruby-identifier">:date</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">ago</span>(<span class="ruby-identifier">other</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">utc</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">other</span> <span class="ruby-keyword kw">rescue</span> <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">ago</span>(<span class="ruby-identifier">other</span>)
+219:         <span class="ruby-identifier">result</span>.<span class="ruby-identifier">in_time_zone</span>(<span class="ruby-identifier">time_zone</span>)
+220:       <span class="ruby-keyword kw">end</span>
+221:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000494"></a><b>&lt;=&gt;</b>(other)
+  </div>
+  <div class="description">
+  <p>
+Use the <a href="TimeWithZone.html#M000464">time</a> in UTC for
+comparisons.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000494_source')" id="l_M000494_source">show source</a> ]</p>
+  <div id="M000494_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 175</span>
+175:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">&lt;=&gt;</span>(<span class="ruby-identifier">other</span>)
+176:       <span class="ruby-identifier">utc</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">other</span>
+177:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000513"></a><b>acts_like_time?</b>()
+  </div>
+  <div class="description">
+  <p>
+So that <tt>self</tt> <tt>acts_like?(:<a
+href="TimeWithZone.html#M000464">time</a>)</tt>.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000513_source')" id="l_M000513_source">show source</a> ]</p>
+  <div id="M000513_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 284</span>
+284:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">acts_like_time?</span>
+285:       <span class="ruby-keyword kw">true</span>
+286:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000504"></a><b>advance</b>(options)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000504_source')" id="l_M000504_source">show source</a> ]</p>
+  <div id="M000504_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 237</span>
+237:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">advance</span>(<span class="ruby-identifier">options</span>)
+238:       <span class="ruby-comment cmt"># If we're advancing a value of variable length (i.e., years, weeks, months, days), advance from #time,</span>
+239:       <span class="ruby-comment cmt"># otherwise advance from #utc, for accuracy when moving across DST boundaries</span>
+240:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">values_at</span>(<span class="ruby-identifier">:years</span>, <span class="ruby-identifier">:weeks</span>, <span class="ruby-identifier">:months</span>, <span class="ruby-identifier">:days</span>).<span class="ruby-identifier">any?</span>
+241:         <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">:advance</span>, <span class="ruby-identifier">options</span>)
+242:       <span class="ruby-keyword kw">else</span>
+243:         <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">advance</span>(<span class="ruby-identifier">options</span>).<span class="ruby-identifier">in_time_zone</span>(<span class="ruby-identifier">time_zone</span>)
+244:       <span class="ruby-keyword kw">end</span>
+245:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000503"></a><b>ago</b>(other)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000503_source')" id="l_M000503_source">show source</a> ]</p>
+  <div id="M000503_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 233</span>
+233:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ago</span>(<span class="ruby-identifier">other</span>)
+234:       <span class="ruby-identifier">since</span>(<span class="ruby-operator">-</span><span class="ruby-identifier">other</span>)
+235:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000486"></a><b>as_json</b>(options = nil)
+  </div>
+  <div class="description">
+  <p>
+Coerces the date to a string for <a href="JSON.html">JSON</a> encoding. The
+default format is ISO 8601. You can get %Y/%m/%d %H:%M:%S +offset style by
+setting ActiveSupport::JSON::Encoding.use_standard_json_time_format to
+false.
+</p>
+<h4>Examples</h4>
+<pre>
+  # With ActiveSupport::JSON::Encoding.use_standard_json_time_format = true
+  Time.utc(2005,2,1,15,15,10).in_time_zone.to_json
+  # =&gt; &quot;2005-02-01T15:15:10Z&quot;
+
+  # With ActiveSupport::JSON::Encoding.use_standard_json_time_format = false
+  Time.utc(2005,2,1,15,15,10).in_time_zone.to_json
+  # =&gt; &quot;2005/02/01 15:15:10 +0000&quot;
+</pre>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000486_source')" id="l_M000486_source">show source</a> ]</p>
+  <div id="M000486_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 129</span>
+129:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">as_json</span>(<span class="ruby-identifier">options</span> = <span class="ruby-keyword kw">nil</span>)
+130:       <span class="ruby-keyword kw">if</span> <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">JSON</span><span class="ruby-operator">::</span><span class="ruby-constant">Encoding</span>.<span class="ruby-identifier">use_standard_json_time_format</span>
+131:         <span class="ruby-identifier">xmlschema</span>
+132:       <span class="ruby-keyword kw">else</span>
+133:         <span class="ruby-node">%(#{time.strftime(&quot;%Y/%m/%d %H:%M:%S&quot;)} #{formatted_offset(false)})</span>
+134:       <span class="ruby-keyword kw">end</span>
+135:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000495"></a><b>between?</b>(min, max)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000495_source')" id="l_M000495_source">show source</a> ]</p>
+  <div id="M000495_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 179</span>
+179:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">between?</span>(<span class="ruby-identifier">min</span>, <span class="ruby-identifier">max</span>)
+180:       <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">between?</span>(<span class="ruby-identifier">min</span>, <span class="ruby-identifier">max</span>)
+181:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000466"></a><b>comparable_time</b>()
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="TimeWithZone.html#M000465">utc</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000474"></a><b>dst?</b>()
+  </div>
+<div class="aka">
+  This method is also aliased as
+  <a href="TimeWithZone.html#M000475">isdst</a>
+</div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000474_source')" id="l_M000474_source">show source</a> ]</p>
+  <div id="M000474_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 78</span>
+78:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dst?</span>
+79:       <span class="ruby-identifier">period</span>.<span class="ruby-identifier">dst?</span>
+80:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000499"></a><b>eql?</b>(other)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000499_source')" id="l_M000499_source">show source</a> ]</p>
+  <div id="M000499_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 195</span>
+195:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">eql?</span>(<span class="ruby-identifier">other</span>)
+196:       <span class="ruby-identifier">utc</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">other</span>
+197:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000481"></a><b>formatted_offset</b>(colon = true, alternate_utc_string = nil)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000481_source')" id="l_M000481_source">show source</a> ]</p>
+  <div id="M000481_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 94</span>
+94:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">formatted_offset</span>(<span class="ruby-identifier">colon</span> = <span class="ruby-keyword kw">true</span>, <span class="ruby-identifier">alternate_utc_string</span> = <span class="ruby-keyword kw">nil</span>)
+95:       <span class="ruby-identifier">utc?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">alternate_utc_string</span> <span class="ruby-operator">||</span> <span class="ruby-constant">TimeZone</span>.<span class="ruby-identifier">seconds_to_utc_offset</span>(<span class="ruby-identifier">utc_offset</span>, <span class="ruby-identifier">colon</span>)
+96:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000516"></a><b>freeze</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000516_source')" id="l_M000516_source">show source</a> ]</p>
+  <div id="M000516_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 294</span>
+294:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">freeze</span>
+295:       <span class="ruby-identifier">period</span>; <span class="ruby-identifier">utc</span>; <span class="ruby-identifier">time</span> <span class="ruby-comment cmt"># preload instance variables before freezing</span>
+296:       <span class="ruby-keyword kw">super</span>
+297:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000498"></a><b>future?</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000498_source')" id="l_M000498_source">show source</a> ]</p>
+  <div id="M000498_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 191</span>
+191:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">future?</span>
+192:       <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">future?</span>
+193:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000467"></a><b>getgm</b>()
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="TimeWithZone.html#M000465">utc</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000473"></a><b>getlocal</b>()
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="TimeWithZone.html#M000472">localtime</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000468"></a><b>getutc</b>()
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="TimeWithZone.html#M000465">utc</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000477"></a><b>gmt?</b>()
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="TimeWithZone.html#M000465">utc</a>?
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000479"></a><b>gmt_offset</b>()
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="TimeWithZone.html#M000478">utc_offset</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000469"></a><b>gmtime</b>()
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="TimeWithZone.html#M000465">utc</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000480"></a><b>gmtoff</b>()
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="TimeWithZone.html#M000478">utc_offset</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000509"></a><b>hash</b>()
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="TimeWithZone.html#M000508">to_i</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000488"></a><b>httpdate</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000488_source')" id="l_M000488_source">show source</a> ]</p>
+  <div id="M000488_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 145</span>
+145:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">httpdate</span>
+146:       <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">httpdate</span>
+147:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000471"></a><b>in_time_zone</b>(new_zone = ::Time.zone)
+  </div>
+  <div class="description">
+  <p>
+Returns the simultaneous <a href="TimeWithZone.html#M000464">time</a> in
+<tt><a href="../Time.html#M000087">Time.zone</a></tt>, or the specified <a
+href="TimeWithZone.html#M000482">zone</a>.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000471_source')" id="l_M000471_source">show source</a> ]</p>
+  <div id="M000471_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 67</span>
+67:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">in_time_zone</span>(<span class="ruby-identifier">new_zone</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Time</span>.<span class="ruby-identifier">zone</span>)
+68:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">time_zone</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">new_zone</span>
+69:       <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">in_time_zone</span>(<span class="ruby-identifier">new_zone</span>)
+70:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000483"></a><b>inspect</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000483_source')" id="l_M000483_source">show source</a> ]</p>
+  <div id="M000483_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 103</span>
+103:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inspect</span>
+104:       <span class="ruby-node">&quot;#{time.strftime('%a, %d %b %Y %H:%M:%S')} #{zone} #{formatted_offset}&quot;</span>
+105:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000514"></a><b>is_a?</b>(klass)
+  </div>
+  <div class="description">
+  <p>
+Say we&#8216;re a <a href="../Time.html">Time</a> to thwart type checking.
+</p>
+  </div>
+<div class="aka">
+  This method is also aliased as
+  <a href="TimeWithZone.html#M000515">kind_of?</a>
+</div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000514_source')" id="l_M000514_source">show source</a> ]</p>
+  <div id="M000514_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 289</span>
+289:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_a?</span>(<span class="ruby-identifier">klass</span>)
+290:       <span class="ruby-identifier">klass</span> <span class="ruby-operator">==</span> <span class="ruby-operator">::</span><span class="ruby-constant">Time</span> <span class="ruby-operator">||</span> <span class="ruby-keyword kw">super</span>
+291:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000475"></a><b>isdst</b>()
+  </div>
+  <div class="description">
+  <p>
+Alias for dst?
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000485"></a><b>iso8601</b>(fraction_digits = 0)
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="TimeWithZone.html#M000484">xmlschema</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000515"></a><b>kind_of?</b>(klass)
+  </div>
+  <div class="description">
+  <p>
+Alias for is_a?
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000472"></a><b>localtime</b>()
+  </div>
+  <div class="description">
+  <p>
+Returns a <tt>Time.local()</tt> instance of the simultaneous <a
+href="TimeWithZone.html#M000464">time</a> in your system&#8216;s
+<tt>ENV[&#8216;TZ&#8217;]</tt> <a href="TimeWithZone.html#M000482">zone</a>
+</p>
+  </div>
+<div class="aka">
+  This method is also aliased as
+  <a href="TimeWithZone.html#M000473">getlocal</a>
+</div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000472_source')" id="l_M000472_source">show source</a> ]</p>
+  <div id="M000472_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 73</span>
+73:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">localtime</span>
+74:       <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">getlocal</span>
+75:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000517"></a><b>marshal_dump</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000517_source')" id="l_M000517_source">show source</a> ]</p>
+  <div id="M000517_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 299</span>
+299:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">marshal_dump</span>
+300:       [<span class="ruby-identifier">utc</span>, <span class="ruby-identifier">time_zone</span>.<span class="ruby-identifier">name</span>, <span class="ruby-identifier">time</span>]
+301:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000518"></a><b>marshal_load</b>(variables)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000518_source')" id="l_M000518_source">show source</a> ]</p>
+  <div id="M000518_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 303</span>
+303:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">marshal_load</span>(<span class="ruby-identifier">variables</span>)
+304:       <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">variables</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">utc</span>, <span class="ruby-operator">::</span><span class="ruby-constant">Time</span>.<span class="ruby-identifier">__send__</span>(<span class="ruby-identifier">:get_zone</span>, <span class="ruby-identifier">variables</span>[<span class="ruby-value">1</span>]), <span class="ruby-identifier">variables</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">utc</span>)
+305:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000520"></a><b>method_missing</b>(sym, *args, &amp;block)
+  </div>
+  <div class="description">
+  <p>
+Send the missing method to <tt><a
+href="TimeWithZone.html#M000464">time</a></tt> instance, and wrap result in
+a <a href="TimeWithZone.html#M000463">new</a> <a
+href="TimeWithZone.html">TimeWithZone</a> with the existing
+<tt>time_zone</tt>.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000520_source')" id="l_M000520_source">show source</a> ]</p>
+  <div id="M000520_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 315</span>
+315:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">sym</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+316:       <span class="ruby-identifier">result</span> = <span class="ruby-identifier">time</span>.<span class="ruby-identifier">__send__</span>(<span class="ruby-identifier">sym</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+317:       <span class="ruby-identifier">result</span>.<span class="ruby-identifier">acts_like?</span>(<span class="ruby-identifier">:time</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">time_zone</span>, <span class="ruby-identifier">result</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">result</span>
+318:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000496"></a><b>past?</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000496_source')" id="l_M000496_source">show source</a> ]</p>
+  <div id="M000496_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 183</span>
+183:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">past?</span>
+184:       <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">past?</span>
+185:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000470"></a><b>period</b>()
+  </div>
+  <div class="description">
+  <p>
+Returns the underlying TZInfo::TimezonePeriod.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000470_source')" id="l_M000470_source">show source</a> ]</p>
+  <div id="M000470_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 62</span>
+62:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">period</span>
+63:       <span class="ruby-ivar">@period</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">time_zone</span>.<span class="ruby-identifier">period_for_utc</span>(<span class="ruby-ivar">@utc</span>)
+64:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000519"></a><b>respond_to?</b>(sym, include_priv = false)
+  </div>
+  <div class="description">
+  <p>
+Ensure proxy class responds to all methods that underlying <a
+href="TimeWithZone.html#M000464">time</a> instance responds to.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000519_source')" id="l_M000519_source">show source</a> ]</p>
+  <div id="M000519_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 308</span>
+308:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">sym</span>, <span class="ruby-identifier">include_priv</span> = <span class="ruby-keyword kw">false</span>)
+309:       <span class="ruby-comment cmt"># consistently respond false to acts_like?(:date), regardless of whether #time is a Time or DateTime</span>
+310:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">sym</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'acts_like_date?'</span>
+311:       <span class="ruby-keyword kw">super</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">time</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">sym</span>, <span class="ruby-identifier">include_priv</span>)
+312:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000489"></a><b>rfc2822</b>()
+  </div>
+<div class="aka">
+  This method is also aliased as
+  <a href="TimeWithZone.html#M000490">rfc822</a>
+</div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000489_source')" id="l_M000489_source">show source</a> ]</p>
+  <div id="M000489_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 149</span>
+149:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rfc2822</span>
+150:       <span class="ruby-identifier">to_s</span>(<span class="ruby-identifier">:rfc822</span>)
+151:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000490"></a><b>rfc822</b>()
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="TimeWithZone.html#M000489">rfc2822</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000502"></a><b>since</b>(other)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000502_source')" id="l_M000502_source">show source</a> ]</p>
+  <div id="M000502_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 223</span>
+223:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">since</span>(<span class="ruby-identifier">other</span>)
+224:       <span class="ruby-comment cmt"># If we're adding a Duration of variable length (i.e., years, months, days), move forward from #time,</span>
+225:       <span class="ruby-comment cmt"># otherwise move forward from #utc, for accuracy when moving across DST boundaries</span>
+226:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">duration_of_variable_length?</span>(<span class="ruby-identifier">other</span>)
+227:         <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">:since</span>, <span class="ruby-identifier">other</span>)
+228:       <span class="ruby-keyword kw">else</span>
+229:         <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">since</span>(<span class="ruby-identifier">other</span>).<span class="ruby-identifier">in_time_zone</span>(<span class="ruby-identifier">time_zone</span>)
+230:       <span class="ruby-keyword kw">end</span>
+231:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000493"></a><b>strftime</b>(format)
+  </div>
+  <div class="description">
+  <p>
+Replaces <tt>%Z</tt> and <tt>%z</tt> directives with <tt><a
+href="TimeWithZone.html#M000482">zone</a></tt> and <tt><a
+href="TimeWithZone.html#M000481">formatted_offset</a></tt>, respectively,
+before passing to Time#strftime, so that <a
+href="TimeWithZone.html#M000482">zone</a> information is correct
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000493_source')" id="l_M000493_source">show source</a> ]</p>
+  <div id="M000493_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 169</span>
+169:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">strftime</span>(<span class="ruby-identifier">format</span>)
+170:       <span class="ruby-identifier">format</span> = <span class="ruby-identifier">format</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">'%Z'</span>, <span class="ruby-identifier">zone</span>).<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">'%z'</span>, <span class="ruby-identifier">formatted_offset</span>(<span class="ruby-keyword kw">false</span>))
+171:       <span class="ruby-identifier">time</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-identifier">format</span>)
+172:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000464"></a><b>time</b>()
+  </div>
+  <div class="description">
+  <p>
+Returns a <a href="../Time.html">Time</a> or <a
+href="../DateTime.html">DateTime</a> instance that represents the <a
+href="TimeWithZone.html#M000464">time</a> in <tt>time_zone</tt>.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000464_source')" id="l_M000464_source">show source</a> ]</p>
+  <div id="M000464_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 48</span>
+48:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">time</span>
+49:       <span class="ruby-ivar">@time</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">period</span>.<span class="ruby-identifier">to_local</span>(<span class="ruby-ivar">@utc</span>)
+50:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000506"></a><b>to_a</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000506_source')" id="l_M000506_source">show source</a> ]</p>
+  <div id="M000506_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 260</span>
+260:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_a</span>
+261:       [<span class="ruby-identifier">time</span>.<span class="ruby-identifier">sec</span>, <span class="ruby-identifier">time</span>.<span class="ruby-identifier">min</span>, <span class="ruby-identifier">time</span>.<span class="ruby-identifier">hour</span>, <span class="ruby-identifier">time</span>.<span class="ruby-identifier">day</span>, <span class="ruby-identifier">time</span>.<span class="ruby-identifier">mon</span>, <span class="ruby-identifier">time</span>.<span class="ruby-identifier">year</span>, <span class="ruby-identifier">time</span>.<span class="ruby-identifier">wday</span>, <span class="ruby-identifier">time</span>.<span class="ruby-identifier">yday</span>, <span class="ruby-identifier">dst?</span>, <span class="ruby-identifier">zone</span>]
+262:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000512"></a><b>to_datetime</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000512_source')" id="l_M000512_source">show source</a> ]</p>
+  <div id="M000512_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 279</span>
+279:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_datetime</span>
+280:       <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">to_datetime</span>.<span class="ruby-identifier">new_offset</span>(<span class="ruby-constant">Rational</span>(<span class="ruby-identifier">utc_offset</span>, <span class="ruby-value">86_400</span>))
+281:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000507"></a><b>to_f</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000507_source')" id="l_M000507_source">show source</a> ]</p>
+  <div id="M000507_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 264</span>
+264:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_f</span>
+265:       <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">to_f</span>
+266:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000492"></a><b>to_formatted_s</b>(format = :default)
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="TimeWithZone.html#M000491">to_s</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000508"></a><b>to_i</b>()
+  </div>
+<div class="aka">
+  This method is also aliased as
+  <a href="TimeWithZone.html#M000509">hash</a>
+  <a href="TimeWithZone.html#M000510">tv_sec</a>
+</div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000508_source')" id="l_M000508_source">show source</a> ]</p>
+  <div id="M000508_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 268</span>
+268:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_i</span>
+269:       <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">to_i</span>
+270:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000491"></a><b>to_s</b>(format = :default)
+  </div>
+  <div class="description">
+  <p>
+<tt>:db</tt> format outputs <a href="TimeWithZone.html#M000464">time</a> in
+UTC; all others output <a href="TimeWithZone.html#M000464">time</a> in
+local. Uses <a href="TimeWithZone.html">TimeWithZone</a>&#8216;s <tt><a
+href="TimeWithZone.html#M000493">strftime</a></tt>, so <tt>%Z</tt> and
+<tt>%z</tt> work correctly.
+</p>
+  </div>
+<div class="aka">
+  This method is also aliased as
+  <a href="TimeWithZone.html#M000492">to_formatted_s</a>
+</div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000491_source')" id="l_M000491_source">show source</a> ]</p>
+  <div id="M000491_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 156</span>
+156:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>(<span class="ruby-identifier">format</span> = <span class="ruby-identifier">:default</span>)
+157:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">format</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:db</span>
+158:         <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">to_s</span>(<span class="ruby-identifier">format</span>)
+159:       <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">formatter</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Time</span><span class="ruby-operator">::</span><span class="ruby-constant">DATE_FORMATS</span>[<span class="ruby-identifier">format</span>]
+160:         <span class="ruby-identifier">formatter</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:call</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">formatter</span>.<span class="ruby-identifier">call</span>(<span class="ruby-keyword kw">self</span>).<span class="ruby-identifier">to_s</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">strftime</span>(<span class="ruby-identifier">formatter</span>)
+161:       <span class="ruby-keyword kw">else</span>
+162:         <span class="ruby-node">&quot;#{time.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)} #{formatted_offset(false, 'UTC')}&quot;</span> <span class="ruby-comment cmt"># mimicking Ruby 1.9 Time#to_s format</span>
+163:       <span class="ruby-keyword kw">end</span>
+164:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000511"></a><b>to_time</b>()
+  </div>
+  <div class="description">
+  <p>
+A <a href="TimeWithZone.html">TimeWithZone</a> acts like a <a
+href="../Time.html">Time</a>, so just return <tt>self</tt>.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000511_source')" id="l_M000511_source">show source</a> ]</p>
+  <div id="M000511_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 275</span>
+275:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_time</span>
+276:       <span class="ruby-keyword kw">self</span>
+277:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000487"></a><b>to_yaml</b>(options = {})
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000487_source')" id="l_M000487_source">show source</a> ]</p>
+  <div id="M000487_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 137</span>
+137:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_yaml</span>(<span class="ruby-identifier">options</span> = {})
+138:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">YAML</span><span class="ruby-operator">::</span><span class="ruby-constant">Emitter</span>)
+139:         <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">to_yaml</span>(<span class="ruby-identifier">options</span>)
+140:       <span class="ruby-keyword kw">else</span>
+141:         <span class="ruby-identifier">time</span>.<span class="ruby-identifier">to_yaml</span>(<span class="ruby-identifier">options</span>).<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">'Z'</span>, <span class="ruby-identifier">formatted_offset</span>(<span class="ruby-keyword kw">true</span>, <span class="ruby-value str">'Z'</span>))
+142:       <span class="ruby-keyword kw">end</span>
+143:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000497"></a><b>today?</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000497_source')" id="l_M000497_source">show source</a> ]</p>
+  <div id="M000497_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 187</span>
+187:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">today?</span>
+188:       <span class="ruby-identifier">time</span>.<span class="ruby-identifier">today?</span>
+189:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000510"></a><b>tv_sec</b>()
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="TimeWithZone.html#M000508">to_i</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000505"></a><b>usec</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000505_source')" id="l_M000505_source">show source</a> ]</p>
+  <div id="M000505_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 256</span>
+256:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">usec</span>
+257:       <span class="ruby-identifier">time</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:usec</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">time</span>.<span class="ruby-identifier">usec</span> <span class="ruby-operator">:</span> <span class="ruby-value">0</span>
+258:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000465"></a><b>utc</b>()
+  </div>
+  <div class="description">
+  <p>
+Returns a <a href="../Time.html">Time</a> or <a
+href="../DateTime.html">DateTime</a> instance that represents the <a
+href="TimeWithZone.html#M000464">time</a> in UTC.
+</p>
+  </div>
+<div class="aka">
+  This method is also aliased as
+  <a href="TimeWithZone.html#M000466">comparable_time</a>
+  <a href="TimeWithZone.html#M000467">getgm</a>
+  <a href="TimeWithZone.html#M000468">getutc</a>
+  <a href="TimeWithZone.html#M000469">gmtime</a>
+</div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000465_source')" id="l_M000465_source">show source</a> ]</p>
+  <div id="M000465_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 53</span>
+53:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">utc</span>
+54:       <span class="ruby-ivar">@utc</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">period</span>.<span class="ruby-identifier">to_utc</span>(<span class="ruby-ivar">@time</span>)
+55:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000476"></a><b>utc?</b>()
+  </div>
+<div class="aka">
+  This method is also aliased as
+  <a href="TimeWithZone.html#M000477">gmt?</a>
+</div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000476_source')" id="l_M000476_source">show source</a> ]</p>
+  <div id="M000476_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 83</span>
+83:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">utc?</span>
+84:       <span class="ruby-identifier">time_zone</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'UTC'</span>
+85:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000478"></a><b>utc_offset</b>()
+  </div>
+<div class="aka">
+  This method is also aliased as
+  <a href="TimeWithZone.html#M000479">gmt_offset</a>
+  <a href="TimeWithZone.html#M000480">gmtoff</a>
+</div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000478_source')" id="l_M000478_source">show source</a> ]</p>
+  <div id="M000478_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 88</span>
+88:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">utc_offset</span>
+89:       <span class="ruby-identifier">period</span>.<span class="ruby-identifier">utc_total_offset</span>
+90:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000484"></a><b>xmlschema</b>(fraction_digits = 0)
+  </div>
+<div class="aka">
+  This method is also aliased as
+  <a href="TimeWithZone.html#M000485">iso8601</a>
+</div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000484_source')" id="l_M000484_source">show source</a> ]</p>
+  <div id="M000484_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 107</span>
+107:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">xmlschema</span>(<span class="ruby-identifier">fraction_digits</span> = <span class="ruby-value">0</span>)
+108:       <span class="ruby-identifier">fraction</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fraction_digits</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+109:         <span class="ruby-value str">&quot;.%i&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">time</span>.<span class="ruby-identifier">usec</span>.<span class="ruby-identifier">to_s</span>[<span class="ruby-value">0</span>, <span class="ruby-identifier">fraction_digits</span>]
+110:       <span class="ruby-keyword kw">end</span>
+111: 
+112:       <span class="ruby-node">&quot;#{time.strftime(&quot;%Y-%m-%dT%H:%M:%S&quot;)}#{fraction}#{formatted_offset(true, 'Z')}&quot;</span>
+113:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000482"></a><b>zone</b>()
+  </div>
+  <div class="description">
+  <p>
+<a href="../Time.html">Time</a> uses <tt><a
+href="TimeWithZone.html#M000482">zone</a></tt> to display the <a
+href="TimeWithZone.html#M000464">time</a> <a
+href="TimeWithZone.html#M000482">zone</a> abbreviation, so we&#8216;re
+duck-typing it.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000482_source')" id="l_M000482_source">show source</a> ]</p>
+  <div id="M000482_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/time_with_zone.rb, line 99</span>
+ 99:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">zone</span>
+100:       <span class="ruby-identifier">period</span>.<span class="ruby-identifier">zone_identifier</span>.<span class="ruby-identifier">to_s</span>
+101:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

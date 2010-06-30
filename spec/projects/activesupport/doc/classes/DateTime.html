@@ -1,0 +1,922 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: DateTime</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />DateTime</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../files/lib/active_support/core_ext/date_time/acts_like_rb.html">lib/active_support/core_ext/date_time/acts_like.rb</a>
+<a href="../files/lib/active_support/core_ext/date_time/calculations_rb.html">lib/active_support/core_ext/date_time/calculations.rb</a>
+<a href="../files/lib/active_support/core_ext/date_time/conversions_rb.html">lib/active_support/core_ext/date_time/conversions.rb</a>
+<a href="../files/lib/active_support/core_ext/date_time/zones_rb.html">lib/active_support/core_ext/date_time/zones.rb</a>
+<a href="../files/lib/active_support/json/encoding_rb.html">lib/active_support/json/encoding.rb</a>
+        </td>
+      </tr>
+    <tr>
+      <td>Parent:</td>
+      <td>
+        <a href="Object.html">
+Object
+         </a>
+     </td>
+   </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000125">&lt;=&gt;</a></li>
+  <li><a href="#M000103">acts_like_date?</a></li>
+  <li><a href="#M000104">acts_like_time?</a></li>
+  <li><a href="#M000111">advance</a></li>
+  <li><a href="#M000112">ago</a></li>
+  <li><a href="#M000118">at_beginning_of_day</a></li>
+  <li><a href="#M000117">at_midnight</a></li>
+  <li><a href="#M000115">beginning_of_day</a></li>
+  <li><a href="#M000110">change</a></li>
+  <li><a href="#M000124">compare_with_coercion</a></li>
+  <li><a href="#M000106">current</a></li>
+  <li><a href="#M000119">end_of_day</a></li>
+  <li><a href="#M000128">formatted_offset</a></li>
+  <li><a href="#M000108">future?</a></li>
+  <li><a href="#M000121">getutc</a></li>
+  <li><a href="#M000114">in</a></li>
+  <li><a href="#M000137">in_time_zone</a></li>
+  <li><a href="#M000130">inspect</a></li>
+  <li><a href="#M000105">local_offset</a></li>
+  <li><a href="#M000116">midnight</a></li>
+  <li><a href="#M000107">past?</a></li>
+  <li><a href="#M000129">readable_inspect</a></li>
+  <li><a href="#M000109">seconds_since_midnight</a></li>
+  <li><a href="#M000113">since</a></li>
+  <li><a href="#M000131">to_date</a></li>
+  <li><a href="#M000133">to_datetime</a></li>
+  <li><a href="#M000135">to_f</a></li>
+  <li><a href="#M000126">to_formatted_s</a></li>
+  <li><a href="#M000136">to_i</a></li>
+  <li><a href="#M000127">to_s</a></li>
+  <li><a href="#M000132">to_time</a></li>
+  <li><a href="#M000120">utc</a></li>
+  <li><a href="#M000122">utc?</a></li>
+  <li><a href="#M000123">utc_offset</a></li>
+  <li><a href="#M000134">xmlschema</a></li>
+  </ul>
+
+
+
+
+
+
+<div class="sectiontitle">Public Class methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000106"></a><b>current</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000106_source')" id="l_M000106_source">show source</a> ]</p>
+  <div id="M000106_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/calculations.rb, line 11</span>
+11:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current</span>
+12:       <span class="ruby-operator">::</span><span class="ruby-constant">Time</span>.<span class="ruby-identifier">zone_default</span> <span class="ruby-value">? </span><span class="ruby-operator">::</span><span class="ruby-constant">Time</span>.<span class="ruby-identifier">zone</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_datetime</span> <span class="ruby-operator">:</span> <span class="ruby-operator">::</span><span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_datetime</span>
+13:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000105"></a><b>local_offset</b>()
+  </div>
+  <div class="description">
+  <p>
+DateTimes aren&#8216;t aware of DST rules, so use a consistent non-DST
+offset when creating a <a href="DateTime.html">DateTime</a> with an offset
+<a href="DateTime.html#M000114">in</a> the local zone
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000105_source')" id="l_M000105_source">show source</a> ]</p>
+  <div id="M000105_source" class="dyn-source">
+<pre>
+   <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/calculations.rb, line 7</span>
+7:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">local_offset</span>
+8:       <span class="ruby-operator">::</span><span class="ruby-constant">Time</span>.<span class="ruby-identifier">local</span>(<span class="ruby-value">2007</span>).<span class="ruby-identifier">utc_offset</span>.<span class="ruby-identifier">to_r</span> <span class="ruby-operator">/</span> <span class="ruby-value">86400</span>
+9:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000125"></a><b>&lt;=&gt;</b>(other)
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="DateTime.html#M000124">compare_with_coercion</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000103"></a><b>acts_like_date?</b>()
+  </div>
+  <div class="description">
+  <p>
+Duck-types as a Date-like class. See Object#acts_like?.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000103_source')" id="l_M000103_source">show source</a> ]</p>
+  <div id="M000103_source" class="dyn-source">
+<pre>
+   <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/acts_like.rb, line 5</span>
+5:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">acts_like_date?</span>
+6:     <span class="ruby-keyword kw">true</span>
+7:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000104"></a><b>acts_like_time?</b>()
+  </div>
+  <div class="description">
+  <p>
+Duck-types as a <a href="Time.html">Time</a>-like class. See
+Object#acts_like?.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000104_source')" id="l_M000104_source">show source</a> ]</p>
+  <div id="M000104_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/acts_like.rb, line 10</span>
+10:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">acts_like_time?</span>
+11:     <span class="ruby-keyword kw">true</span>
+12:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000111"></a><b>advance</b>(options)
+  </div>
+  <div class="description">
+  <p>
+Uses Date to provide precise <a href="Time.html">Time</a> calculations for
+years, months, and days. The <tt>options</tt> parameter takes a hash with
+any of these keys: <tt>:years</tt>, <tt>:months</tt>, <tt>:weeks</tt>,
+<tt>:days</tt>, <tt>:hours</tt>, <tt>:minutes</tt>, <tt>:seconds</tt>.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000111_source')" id="l_M000111_source">show source</a> ]</p>
+  <div id="M000111_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/calculations.rb, line 51</span>
+51:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">advance</span>(<span class="ruby-identifier">options</span>)
+52:     <span class="ruby-identifier">d</span> = <span class="ruby-identifier">to_date</span>.<span class="ruby-identifier">advance</span>(<span class="ruby-identifier">options</span>)
+53:     <span class="ruby-identifier">datetime_advanced_by_date</span> = <span class="ruby-identifier">change</span>(<span class="ruby-identifier">:year</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">d</span>.<span class="ruby-identifier">year</span>, <span class="ruby-identifier">:month</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">d</span>.<span class="ruby-identifier">month</span>, <span class="ruby-identifier">:day</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">d</span>.<span class="ruby-identifier">day</span>)
+54:     <span class="ruby-identifier">seconds_to_advance</span> = (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:seconds</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>) <span class="ruby-operator">+</span> (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:minutes</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>) <span class="ruby-operator">*</span> <span class="ruby-value">60</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:hours</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>) <span class="ruby-operator">*</span> <span class="ruby-value">3600</span>
+55:     <span class="ruby-identifier">seconds_to_advance</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">datetime_advanced_by_date</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">datetime_advanced_by_date</span>.<span class="ruby-identifier">since</span>(<span class="ruby-identifier">seconds_to_advance</span>)
+56:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000112"></a><b>ago</b>(seconds)
+  </div>
+  <div class="description">
+  <p>
+Returns a new <a href="DateTime.html">DateTime</a> representing the time a
+number of seconds <a href="DateTime.html#M000112">ago</a> Do not use this
+method <a href="DateTime.html#M000114">in</a> combination with x.months,
+use months_ago instead!
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000112_source')" id="l_M000112_source">show source</a> ]</p>
+  <div id="M000112_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/calculations.rb, line 60</span>
+60:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ago</span>(<span class="ruby-identifier">seconds</span>)
+61:     <span class="ruby-identifier">since</span>(<span class="ruby-operator">-</span><span class="ruby-identifier">seconds</span>)
+62:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000118"></a><b>at_beginning_of_day</b>()
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="DateTime.html#M000115">beginning_of_day</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000117"></a><b>at_midnight</b>()
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="DateTime.html#M000115">beginning_of_day</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000115"></a><b>beginning_of_day</b>()
+  </div>
+  <div class="description">
+  <p>
+Returns a new <a href="DateTime.html">DateTime</a> representing the start
+of the day (0:00)
+</p>
+  </div>
+<div class="aka">
+  This method is also aliased as
+  <a href="DateTime.html#M000116">midnight</a>
+  <a href="DateTime.html#M000117">at_midnight</a>
+  <a href="DateTime.html#M000118">at_beginning_of_day</a>
+</div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000115_source')" id="l_M000115_source">show source</a> ]</p>
+  <div id="M000115_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/calculations.rb, line 72</span>
+72:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">beginning_of_day</span>
+73:     <span class="ruby-identifier">change</span>(<span class="ruby-identifier">:hour</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>)
+74:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000110"></a><b>change</b>(options)
+  </div>
+  <div class="description">
+  <p>
+Returns a new <a href="DateTime.html">DateTime</a> where one or more of the
+elements have been changed according to the <tt>options</tt> parameter. The
+time options (hour, minute, sec) reset cascadingly, so if only the hour is
+passed, then minute and sec is set to 0. If the hour and minute is passed,
+then sec is set to 0.
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000110_source')" id="l_M000110_source">show source</a> ]</p>
+  <div id="M000110_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/calculations.rb, line 34</span>
+34:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">change</span>(<span class="ruby-identifier">options</span>)
+35:     <span class="ruby-operator">::</span><span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">civil</span>(
+36:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:year</span>]  <span class="ruby-operator">||</span> <span class="ruby-identifier">year</span>,
+37:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:month</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">month</span>,
+38:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:day</span>]   <span class="ruby-operator">||</span> <span class="ruby-identifier">day</span>,
+39:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:hour</span>]  <span class="ruby-operator">||</span> <span class="ruby-identifier">hour</span>,
+40:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:min</span>]   <span class="ruby-operator">||</span> (<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:hour</span>] <span class="ruby-operator">?</span> <span class="ruby-value">0</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">min</span>),
+41:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:sec</span>]   <span class="ruby-operator">||</span> ((<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:hour</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:min</span>]) <span class="ruby-operator">?</span> <span class="ruby-value">0</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">sec</span>),
+42:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:offset</span>]  <span class="ruby-operator">||</span> <span class="ruby-identifier">offset</span>,
+43:       <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:start</span>]  <span class="ruby-operator">||</span> <span class="ruby-identifier">start</span>
+44:     )
+45:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000124"></a><b>compare_with_coercion</b>(other)
+  </div>
+  <div class="description">
+  <p>
+Layers additional behavior on <a
+href="DateTime.html">DateTime</a>#&lt;=&gt; so that <a
+href="Time.html">Time</a> and <a
+href="ActiveSupport/TimeWithZone.html">ActiveSupport::TimeWithZone</a>
+instances can be compared with a <a href="DateTime.html">DateTime</a>
+</p>
+  </div>
+<div class="aka">
+  This method is also aliased as
+  <a href="DateTime.html#M000125"><=></a>
+</div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000124_source')" id="l_M000124_source">show source</a> ]</p>
+  <div id="M000124_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/calculations.rb, line 106</span>
+106:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">compare_with_coercion</span>(<span class="ruby-identifier">other</span>)
+107:     <span class="ruby-identifier">other</span> = <span class="ruby-identifier">other</span>.<span class="ruby-identifier">comparable_time</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:comparable_time</span>)
+108:     <span class="ruby-identifier">other</span> = <span class="ruby-identifier">other</span>.<span class="ruby-identifier">to_datetime</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">acts_like?</span>(<span class="ruby-identifier">:date</span>)
+109:     <span class="ruby-identifier">compare_without_coercion</span>(<span class="ruby-identifier">other</span>)
+110:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000119"></a><b>end_of_day</b>()
+  </div>
+  <div class="description">
+  <p>
+Returns a new <a href="DateTime.html">DateTime</a> representing the end of
+the day (23:59:59)
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000119_source')" id="l_M000119_source">show source</a> ]</p>
+  <div id="M000119_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/calculations.rb, line 80</span>
+80:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">end_of_day</span>
+81:     <span class="ruby-identifier">change</span>(<span class="ruby-identifier">:hour</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">23</span>, <span class="ruby-identifier">:min</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">59</span>, <span class="ruby-identifier">:sec</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">59</span>)
+82:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000128"></a><b>formatted_offset</b>(colon = true, alternate_utc_string = nil)
+  </div>
+  <div class="description">
+  <p>
+Returns the <tt><a href="DateTime.html#M000123">utc_offset</a></tt> as an
++HH:MM formatted string. Examples:
+</p>
+<pre>
+  datetime = DateTime.civil(2000, 1, 1, 0, 0, 0, Rational(-6, 24))
+  datetime.formatted_offset         # =&gt; &quot;-06:00&quot;
+  datetime.formatted_offset(false)  # =&gt; &quot;-0600&quot;
+</pre>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000128_source')" id="l_M000128_source">show source</a> ]</p>
+  <div id="M000128_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/conversions.rb, line 47</span>
+47:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">formatted_offset</span>(<span class="ruby-identifier">colon</span> = <span class="ruby-keyword kw">true</span>, <span class="ruby-identifier">alternate_utc_string</span> = <span class="ruby-keyword kw">nil</span>)
+48:     <span class="ruby-identifier">utc?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">alternate_utc_string</span> <span class="ruby-operator">||</span> <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">TimeZone</span>.<span class="ruby-identifier">seconds_to_utc_offset</span>(<span class="ruby-identifier">utc_offset</span>, <span class="ruby-identifier">colon</span>)
+49:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000108"></a><b>future?</b>()
+  </div>
+  <div class="description">
+  <p>
+Tells whether the <a href="DateTime.html">DateTime</a> object&#8216;s
+datetime lies <a href="DateTime.html#M000114">in</a> the future
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000108_source')" id="l_M000108_source">show source</a> ]</p>
+  <div id="M000108_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/calculations.rb, line 22</span>
+22:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">future?</span>
+23:     <span class="ruby-keyword kw">self</span> <span class="ruby-operator">&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">current</span>
+24:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000121"></a><b>getutc</b>()
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="DateTime.html#M000120">utc</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000114"></a><b>in</b>(seconds)
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="DateTime.html#M000113">since</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000137"></a><b>in_time_zone</b>(zone = ::Time.zone)
+  </div>
+  <div class="description">
+  <p>
+Returns the simultaneous time <a href="DateTime.html#M000114">in</a> <tt><a
+href="Time.html#M000087">Time.zone</a></tt>.
+</p>
+<pre>
+  Time.zone = 'Hawaii'             # =&gt; 'Hawaii'
+  DateTime.new(2000).in_time_zone  # =&gt; Fri, 31 Dec 1999 14:00:00 HST -10:00
+</pre>
+<p>
+This method is similar to Time#localtime, except that it uses <tt><a
+href="Time.html#M000087">Time.zone</a></tt> as the local zone instead of
+the operating system&#8216;s time zone.
+</p>
+<p>
+You can also pass <a href="DateTime.html#M000114">in</a> a TimeZone
+instance or string that identifies a TimeZone as an argument, and the
+conversion will be based on that zone instead of <tt><a
+href="Time.html#M000087">Time.zone</a></tt>.
+</p>
+<pre>
+  DateTime.new(2000).in_time_zone('Alaska')  # =&gt; Fri, 31 Dec 1999 15:00:00 AKST -09:00
+</pre>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000137_source')" id="l_M000137_source">show source</a> ]</p>
+  <div id="M000137_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/zones.rb, line 14</span>
+14:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">in_time_zone</span>(<span class="ruby-identifier">zone</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Time</span>.<span class="ruby-identifier">zone</span>)
+15:     <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">TimeWithZone</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">utc?</span> <span class="ruby-value">? </span><span class="ruby-keyword kw">self</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">getutc</span>, <span class="ruby-operator">::</span><span class="ruby-constant">Time</span>.<span class="ruby-identifier">__send__</span>(<span class="ruby-identifier">:get_zone</span>, <span class="ruby-identifier">zone</span>))
+16:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000130"></a><b>inspect</b>()
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="DateTime.html#M000129">readable_inspect</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000116"></a><b>midnight</b>()
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="DateTime.html#M000115">beginning_of_day</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000107"></a><b>past?</b>()
+  </div>
+  <div class="description">
+  <p>
+Tells whether the <a href="DateTime.html">DateTime</a> object&#8216;s
+datetime lies <a href="DateTime.html#M000114">in</a> the past
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000107_source')" id="l_M000107_source">show source</a> ]</p>
+  <div id="M000107_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/calculations.rb, line 17</span>
+17:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">past?</span>
+18:     <span class="ruby-keyword kw">self</span> <span class="ruby-operator">&lt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">current</span>
+19:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000129"></a><b>readable_inspect</b>()
+  </div>
+  <div class="description">
+  <p>
+Overrides the default <a href="DateTime.html#M000130">inspect</a> method
+with a human readable one, e.g., &quot;Mon, 21 Feb 2005 14:30:00
++0000&quot;
+</p>
+  </div>
+<div class="aka">
+  This method is also aliased as
+  <a href="DateTime.html#M000130">inspect</a>
+</div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000129_source')" id="l_M000129_source">show source</a> ]</p>
+  <div id="M000129_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/conversions.rb, line 52</span>
+52:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">readable_inspect</span>
+53:     <span class="ruby-identifier">to_s</span>(<span class="ruby-identifier">:rfc822</span>)
+54:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000109"></a><b>seconds_since_midnight</b>()
+  </div>
+  <div class="description">
+  <p>
+Seconds <a href="DateTime.html#M000113">since</a> <a
+href="DateTime.html#M000116">midnight</a>: DateTime.now.<a
+href="DateTime.html#M000109">seconds_since_midnight</a>
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000109_source')" id="l_M000109_source">show source</a> ]</p>
+  <div id="M000109_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/calculations.rb, line 27</span>
+27:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">seconds_since_midnight</span>
+28:     <span class="ruby-identifier">sec</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">min</span> <span class="ruby-operator">*</span> <span class="ruby-value">60</span>) <span class="ruby-operator">+</span> (<span class="ruby-identifier">hour</span> <span class="ruby-operator">*</span> <span class="ruby-value">3600</span>)
+29:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000113"></a><b>since</b>(seconds)
+  </div>
+  <div class="description">
+  <p>
+Returns a new <a href="DateTime.html">DateTime</a> representing the time a
+number of seconds <a href="DateTime.html#M000113">since</a> the instance
+time Do not use this method <a href="DateTime.html#M000114">in</a>
+combination with x.months, use months_since instead!
+</p>
+  </div>
+<div class="aka">
+  This method is also aliased as
+  <a href="DateTime.html#M000114">in</a>
+</div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000113_source')" id="l_M000113_source">show source</a> ]</p>
+  <div id="M000113_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/calculations.rb, line 66</span>
+66:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">since</span>(<span class="ruby-identifier">seconds</span>)
+67:     <span class="ruby-keyword kw">self</span> <span class="ruby-operator">+</span> <span class="ruby-constant">Rational</span>(<span class="ruby-identifier">seconds</span>.<span class="ruby-identifier">round</span>, <span class="ruby-value">86400</span>)
+68:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000131"></a><b>to_date</b>()
+  </div>
+  <div class="description">
+  <p>
+Converts self to a Ruby Date object; time portion is discarded
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000131_source')" id="l_M000131_source">show source</a> ]</p>
+  <div id="M000131_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/conversions.rb, line 59</span>
+59:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_date</span>
+60:     <span class="ruby-operator">::</span><span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">year</span>, <span class="ruby-identifier">month</span>, <span class="ruby-identifier">day</span>)
+61:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000133"></a><b>to_datetime</b>()
+  </div>
+  <div class="description">
+  <p>
+To be able to keep Times, Dates and DateTimes interchangeable on
+conversions
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000133_source')" id="l_M000133_source">show source</a> ]</p>
+  <div id="M000133_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/conversions.rb, line 70</span>
+70:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_datetime</span>
+71:     <span class="ruby-keyword kw">self</span>
+72:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000135"></a><b>to_f</b>()
+  </div>
+  <div class="description">
+  <p>
+Converts self to a floating-point number of seconds <a
+href="DateTime.html#M000113">since</a> the Unix epoch
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000135_source')" id="l_M000135_source">show source</a> ]</p>
+  <div id="M000135_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/conversions.rb, line 80</span>
+80:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_f</span>
+81:     <span class="ruby-identifier">seconds_since_unix_epoch</span>.<span class="ruby-identifier">to_f</span>
+82:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000126"></a><b>to_formatted_s</b>(format = :default)
+  </div>
+  <div class="description">
+  <p>
+Convert to a formatted string. See Time::DATE_FORMATS for predefined
+formats.
+</p>
+<p>
+This method is aliased to <tt><a
+href="DateTime.html#M000127">to_s</a></tt>.
+</p>
+<h3>Examples</h3>
+<pre>
+  datetime = DateTime.civil(2007, 12, 4, 0, 0, 0, 0)   # =&gt; Tue, 04 Dec 2007 00:00:00 +0000
+
+  datetime.to_formatted_s(:db)            # =&gt; &quot;2007-12-04 00:00:00&quot;
+  datetime.to_s(:db)                      # =&gt; &quot;2007-12-04 00:00:00&quot;
+  datetime.to_s(:number)                  # =&gt; &quot;20071204000000&quot;
+  datetime.to_formatted_s(:short)         # =&gt; &quot;04 Dec 00:00&quot;
+  datetime.to_formatted_s(:long)          # =&gt; &quot;December 04, 2007 00:00&quot;
+  datetime.to_formatted_s(:long_ordinal)  # =&gt; &quot;December 4th, 2007 00:00&quot;
+  datetime.to_formatted_s(:rfc822)        # =&gt; &quot;Tue, 04 Dec 2007 00:00:00 +0000&quot;
+</pre>
+<h2>Adding your own datetime formats to <a href="DateTime.html#M000126">to_formatted_s</a></h2>
+<p>
+<a href="DateTime.html">DateTime</a> formats are shared with <a
+href="Time.html">Time</a>. You can add your own to the Time::DATE_FORMATS
+hash. Use the format name as the hash key and either a strftime string or
+Proc instance that takes a time or datetime argument as the value.
+</p>
+<pre>
+  # config/initializers/time_formats.rb
+  Time::DATE_FORMATS[:month_and_year] = &quot;%B %Y&quot;
+  Time::DATE_FORMATS[:short_ordinal] = lambda { |time| time.strftime(&quot;%B #{time.day.ordinalize}&quot;) }
+</pre>
+  </div>
+<div class="aka">
+  This method is also aliased as
+  <a href="DateTime.html#M000127">to_s</a>
+</div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000126_source')" id="l_M000126_source">show source</a> ]</p>
+  <div id="M000126_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/conversions.rb, line 32</span>
+32:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_formatted_s</span>(<span class="ruby-identifier">format</span> = <span class="ruby-identifier">:default</span>)
+33:     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">formatter</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Time</span><span class="ruby-operator">::</span><span class="ruby-constant">DATE_FORMATS</span>[<span class="ruby-identifier">format</span>]
+34:       <span class="ruby-identifier">formatter</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">:call</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">formatter</span>.<span class="ruby-identifier">call</span>(<span class="ruby-keyword kw">self</span>).<span class="ruby-identifier">to_s</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">strftime</span>(<span class="ruby-identifier">formatter</span>)
+35:     <span class="ruby-keyword kw">else</span>
+36:       <span class="ruby-identifier">to_default_s</span>
+37:     <span class="ruby-keyword kw">end</span>
+38:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000136"></a><b>to_i</b>()
+  </div>
+  <div class="description">
+  <p>
+Converts self to an integer number of seconds <a
+href="DateTime.html#M000113">since</a> the Unix epoch
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000136_source')" id="l_M000136_source">show source</a> ]</p>
+  <div id="M000136_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/conversions.rb, line 85</span>
+85:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_i</span>
+86:     <span class="ruby-identifier">seconds_since_unix_epoch</span>.<span class="ruby-identifier">to_i</span>
+87:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000127"></a><b>to_s</b>(format = :default)
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="DateTime.html#M000126">to_formatted_s</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000132"></a><b>to_time</b>()
+  </div>
+  <div class="description">
+  <p>
+Attempts to convert self to a Ruby <a href="Time.html">Time</a> object;
+returns self if out of range of Ruby <a href="Time.html">Time</a> class If
+self has an offset other than 0, self will just be returned unaltered, <a
+href="DateTime.html#M000113">since</a> there&#8216;s no clean way to map it
+to a <a href="Time.html">Time</a>
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000132_source')" id="l_M000132_source">show source</a> ]</p>
+  <div id="M000132_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/conversions.rb, line 65</span>
+65:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_time</span>
+66:     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">offset</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-operator">?</span> <span class="ruby-operator">::</span><span class="ruby-constant">Time</span>.<span class="ruby-identifier">utc_time</span>(<span class="ruby-identifier">year</span>, <span class="ruby-identifier">month</span>, <span class="ruby-identifier">day</span>, <span class="ruby-identifier">hour</span>, <span class="ruby-identifier">min</span>, <span class="ruby-identifier">sec</span>) <span class="ruby-operator">:</span> <span class="ruby-keyword kw">self</span>
+67:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000120"></a><b>utc</b>()
+  </div>
+  <div class="description">
+  <p>
+Adjusts <a href="DateTime.html">DateTime</a> to UTC by adding its offset
+value; offset is set to 0
+</p>
+<p>
+Example:
+</p>
+<pre>
+  DateTime.civil(2005, 2, 21, 10, 11, 12, Rational(-6, 24))       # =&gt; Mon, 21 Feb 2005 10:11:12 -0600
+  DateTime.civil(2005, 2, 21, 10, 11, 12, Rational(-6, 24)).utc   # =&gt; Mon, 21 Feb 2005 16:11:12 +0000
+</pre>
+  </div>
+<div class="aka">
+  This method is also aliased as
+  <a href="DateTime.html#M000121">getutc</a>
+</div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000120_source')" id="l_M000120_source">show source</a> ]</p>
+  <div id="M000120_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/calculations.rb, line 90</span>
+90:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">utc</span>
+91:     <span class="ruby-identifier">new_offset</span>(<span class="ruby-value">0</span>)
+92:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000122"></a><b>utc?</b>()
+  </div>
+  <div class="description">
+  <p>
+Returns true if offset == 0
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000122_source')" id="l_M000122_source">show source</a> ]</p>
+  <div id="M000122_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/calculations.rb, line 96</span>
+96:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">utc?</span>
+97:     <span class="ruby-identifier">offset</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+98:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000123"></a><b>utc_offset</b>()
+  </div>
+  <div class="description">
+  <p>
+Returns the offset value <a href="DateTime.html#M000114">in</a> seconds
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000123_source')" id="l_M000123_source">show source</a> ]</p>
+  <div id="M000123_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/calculations.rb, line 101</span>
+101:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">utc_offset</span>
+102:     (<span class="ruby-identifier">offset</span> <span class="ruby-operator">*</span> <span class="ruby-value">86400</span>).<span class="ruby-identifier">to_i</span>
+103:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000134"></a><b>xmlschema</b>()
+  </div>
+  <div class="description">
+  <p>
+Converts datetime to an appropriate format for use <a
+href="DateTime.html#M000114">in</a> XML
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000134_source')" id="l_M000134_source">show source</a> ]</p>
+  <div id="M000134_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/date_time/conversions.rb, line 75</span>
+75:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">xmlschema</span>
+76:     <span class="ruby-identifier">strftime</span>(<span class="ruby-value str">&quot;%Y-%m-%dT%H:%M:%S%Z&quot;</span>)
+77:   <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

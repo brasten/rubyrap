@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveSupport::Autoload</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveSupport::Autoload</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/lib/active_support/dependencies/autoload_rb.html">lib/active_support/dependencies/autoload.rb</a>
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000157">autoload</a></li>
+  <li><a href="#M000159">autoload_at</a></li>
+  <li><a href="#M000158">autoload_under</a></li>
+  <li><a href="#M000162">autoloads</a></li>
+  <li><a href="#M000160">eager_autoload</a></li>
+  <li><a href="#M000161">eager_autoload!</a></li>
+  <li><a href="#M000156">extended</a></li>
+  </ul>
+
+
+
+
+
+
+<div class="sectiontitle">Public Class methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000161"></a><b>eager_autoload!</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000161_source')" id="l_M000161_source">show source</a> ]</p>
+  <div id="M000161_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/dependencies/autoload.rb, line 46</span>
+46:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">eager_autoload!</span>
+47:       <span class="ruby-ivar">@@autoloads</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span> <span class="ruby-identifier">require</span> <span class="ruby-identifier">file</span> }
+48:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000156"></a><b>extended</b>(base)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000156_source')" id="l_M000156_source">show source</a> ]</p>
+  <div id="M000156_source" class="dyn-source">
+<pre>
+   <span class="ruby-comment cmt"># File lib/active_support/dependencies/autoload.rb, line 6</span>
+6:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">extended</span>(<span class="ruby-identifier">base</span>)
+7:       <span class="ruby-identifier">base</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-constant">LazyLoadHooks</span>)
+8:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000157"></a><b>autoload</b>(const_name, path = @@at_path)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000157_source')" id="l_M000157_source">show source</a> ]</p>
+  <div id="M000157_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/dependencies/autoload.rb, line 15</span>
+15:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">autoload</span>(<span class="ruby-identifier">const_name</span>, <span class="ruby-identifier">path</span> = <span class="ruby-ivar">@@at_path</span>)
+16:       <span class="ruby-identifier">full</span> = [<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">name</span>, <span class="ruby-ivar">@@under_path</span>, <span class="ruby-identifier">const_name</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">path</span>].<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;::&quot;</span>)
+17:       <span class="ruby-identifier">location</span> = <span class="ruby-identifier">path</span> <span class="ruby-operator">||</span> <span class="ruby-constant">Inflector</span>.<span class="ruby-identifier">underscore</span>(<span class="ruby-identifier">full</span>)
+18: 
+19:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@@eager_autoload</span>
+20:         <span class="ruby-ivar">@@autoloads</span>[<span class="ruby-identifier">const_name</span>] = <span class="ruby-identifier">location</span>
+21:       <span class="ruby-keyword kw">end</span>
+22:       <span class="ruby-keyword kw">super</span> <span class="ruby-identifier">const_name</span>, <span class="ruby-identifier">location</span>
+23:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000159"></a><b>autoload_at</b>(path) {|| ...}
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000159_source')" id="l_M000159_source">show source</a> ]</p>
+  <div id="M000159_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/dependencies/autoload.rb, line 32</span>
+32:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">autoload_at</span>(<span class="ruby-identifier">path</span>)
+33:       <span class="ruby-ivar">@@at_path</span>, <span class="ruby-identifier">old_path</span> = <span class="ruby-identifier">path</span>, <span class="ruby-ivar">@@at_path</span>
+34:       <span class="ruby-keyword kw">yield</span>
+35:     <span class="ruby-keyword kw">ensure</span>
+36:       <span class="ruby-ivar">@@at_path</span> = <span class="ruby-identifier">old_path</span>
+37:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000158"></a><b>autoload_under</b>(path) {|| ...}
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000158_source')" id="l_M000158_source">show source</a> ]</p>
+  <div id="M000158_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/dependencies/autoload.rb, line 25</span>
+25:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">autoload_under</span>(<span class="ruby-identifier">path</span>)
+26:       <span class="ruby-ivar">@@under_path</span>, <span class="ruby-identifier">old_path</span> = <span class="ruby-identifier">path</span>, <span class="ruby-ivar">@@under_path</span>
+27:       <span class="ruby-keyword kw">yield</span>
+28:     <span class="ruby-keyword kw">ensure</span>
+29:       <span class="ruby-ivar">@@under_path</span> = <span class="ruby-identifier">old_path</span>
+30:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000162"></a><b>autoloads</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000162_source')" id="l_M000162_source">show source</a> ]</p>
+  <div id="M000162_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/dependencies/autoload.rb, line 50</span>
+50:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">autoloads</span>
+51:       <span class="ruby-ivar">@@autoloads</span>
+52:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000160"></a><b>eager_autoload</b>() {|| ...}
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000160_source')" id="l_M000160_source">show source</a> ]</p>
+  <div id="M000160_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/dependencies/autoload.rb, line 39</span>
+39:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">eager_autoload</span>
+40:       <span class="ruby-identifier">old_eager</span>, <span class="ruby-ivar">@@eager_autoload</span> = <span class="ruby-ivar">@@eager_autoload</span>, <span class="ruby-keyword kw">true</span>
+41:       <span class="ruby-keyword kw">yield</span>
+42:     <span class="ruby-keyword kw">ensure</span>
+43:       <span class="ruby-ivar">@@eager_autoload</span> = <span class="ruby-identifier">old_eager</span>
+44:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActiveSupport::SafeBuffer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActiveSupport::SafeBuffer</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/lib/active_support/core_ext/string/output_safety_rb.html">lib/active_support/core_ext/string/output_safety.rb</a>
+        </td>
+      </tr>
+    <tr>
+      <td>Parent:</td>
+      <td>
+String
+     </td>
+   </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000555">+</a></li>
+  <li><a href="#M000554">&lt;&lt;</a></li>
+  <li><a href="#M000553">concat</a></li>
+  <li><a href="#M000557">html_safe</a></li>
+  <li><a href="#M000556">html_safe?</a></li>
+  <li><a href="#M000558">to_s</a></li>
+  </ul>
+
+
+
+
+
+
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000555"></a><b>+</b>(other)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000555_source')" id="l_M000555_source">show source</a> ]</p>
+  <div id="M000555_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/string/output_safety.rb, line 76</span>
+76:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">+</span>(<span class="ruby-identifier">other</span>)
+77:       <span class="ruby-identifier">dup</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">other</span>)
+78:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000554"></a><b>&lt;&lt;</b>(value)
+  </div>
+  <div class="description">
+  <p>
+Alias for <a href="SafeBuffer.html#M000553">concat</a>
+</p>
+  </div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000553"></a><b>concat</b>(value)
+  </div>
+<div class="aka">
+  This method is also aliased as
+  <a href="SafeBuffer.html#M000554"><<</a>
+</div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000553_source')" id="l_M000553_source">show source</a> ]</p>
+  <div id="M000553_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/string/output_safety.rb, line 67</span>
+67:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">concat</span>(<span class="ruby-identifier">value</span>)
+68:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">html_safe?</span>
+69:         <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">value</span>)
+70:       <span class="ruby-keyword kw">else</span>
+71:         <span class="ruby-keyword kw">super</span>(<span class="ruby-constant">ERB</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">h</span>(<span class="ruby-identifier">value</span>))
+72:       <span class="ruby-keyword kw">end</span>
+73:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000557"></a><b>html_safe</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000557_source')" id="l_M000557_source">show source</a> ]</p>
+  <div id="M000557_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/string/output_safety.rb, line 84</span>
+84:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">html_safe</span>
+85:       <span class="ruby-keyword kw">self</span>
+86:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000556"></a><b>html_safe?</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000556_source')" id="l_M000556_source">show source</a> ]</p>
+  <div id="M000556_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/string/output_safety.rb, line 80</span>
+80:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">html_safe?</span>
+81:       <span class="ruby-keyword kw">true</span>
+82:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000558"></a><b>to_s</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000558_source')" id="l_M000558_source">show source</a> ]</p>
+  <div id="M000558_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/core_ext/string/output_safety.rb, line 88</span>
+88:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
+89:       <span class="ruby-keyword kw">self</span>
+90:     <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>

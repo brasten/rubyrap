@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActiveSupport::Dependencies::WatchStack</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+  <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'><tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActiveSupport::Dependencies::WatchStack</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/lib/active_support/dependencies_rb.html">lib/active_support/dependencies.rb</a>
+        </td>
+      </tr>
+    <tr>
+      <td>Parent:</td>
+      <td>
+Array
+     </td>
+   </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+ <!-- banner header -->
+
+  <div id="bodyContent">
+      <div id="content">
+
+
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+  <li><a href="#M000151">add_modules</a></li>
+  <li><a href="#M000149">get</a></li>
+  <li><a href="#M000152">lock</a></li>
+  <li><a href="#M000148">locked</a></li>
+  <li><a href="#M000147">new</a></li>
+  <li><a href="#M000150">new_constants_for</a></li>
+  </ul>
+
+
+
+
+
+
+<div class="sectiontitle">Public Class methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000148"></a><b>locked</b>(*methods)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000148_source')" id="l_M000148_source">show source</a> ]</p>
+  <div id="M000148_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/dependencies.rb, line 68</span>
+68:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">locked</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">methods</span>)
+69:         <span class="ruby-identifier">methods</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">class_eval</span> <span class="ruby-node">&quot;def #{m}(*) lock { super } end&quot;</span> }
+70:       <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000147"></a><b>new</b>()
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000147_source')" id="l_M000147_source">show source</a> ]</p>
+  <div id="M000147_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/dependencies.rb, line 64</span>
+64:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+65:         <span class="ruby-ivar">@mutex</span> = <span class="ruby-constant">Mutex</span>.<span class="ruby-identifier">new</span>
+66:       <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="sectiontitle">Public Instance methods</div>
+<div class="method">
+  <div class="title">
+    <a name="M000151"></a><b>add_modules</b>(modules)
+  </div>
+  <div class="description">
+  <p>
+Add a set of modules to the watch stack, remembering the initial constants
+</p>
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000151_source')" id="l_M000151_source">show source</a> ]</p>
+  <div id="M000151_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/dependencies.rb, line 95</span>
+ 95:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_modules</span>(<span class="ruby-identifier">modules</span>)
+ 96:         <span class="ruby-identifier">list</span> = <span class="ruby-identifier">modules</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">desc</span><span class="ruby-operator">|</span>
+ 97:           <span class="ruby-identifier">name</span> = <span class="ruby-constant">Dependencies</span>.<span class="ruby-identifier">to_constant_name</span>(<span class="ruby-identifier">desc</span>)
+ 98:           <span class="ruby-identifier">consts</span> = <span class="ruby-constant">Dependencies</span>.<span class="ruby-identifier">qualified_const_defined?</span>(<span class="ruby-identifier">name</span>) <span class="ruby-operator">?</span>
+ 99:             <span class="ruby-constant">Inflector</span>.<span class="ruby-identifier">constantize</span>(<span class="ruby-identifier">name</span>).<span class="ruby-identifier">local_constant_names</span> <span class="ruby-operator">:</span> []
+100:           [<span class="ruby-identifier">name</span>, <span class="ruby-identifier">consts</span>]
+101:         <span class="ruby-keyword kw">end</span>
+102:         <span class="ruby-identifier">concat</span>(<span class="ruby-identifier">list</span>)
+103:         <span class="ruby-identifier">list</span>
+104:       <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000149"></a><b>get</b>(key)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000149_source')" id="l_M000149_source">show source</a> ]</p>
+  <div id="M000149_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/dependencies.rb, line 72</span>
+72:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get</span>(<span class="ruby-identifier">key</span>)
+73:         (<span class="ruby-identifier">val</span> = <span class="ruby-identifier">assoc</span>(<span class="ruby-identifier">key</span>)) <span class="ruby-operator">?</span> <span class="ruby-identifier">val</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">:</span> []
+74:       <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000152"></a><b>lock</b>() {|self| ...}
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000152_source')" id="l_M000152_source">show source</a> ]</p>
+  <div id="M000152_source" class="dyn-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/active_support/dependencies.rb, line 106</span>
+106:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">lock</span>
+107:         <span class="ruby-ivar">@mutex</span>.<span class="ruby-identifier">synchronize</span> { <span class="ruby-keyword kw">yield</span> <span class="ruby-keyword kw">self</span> }
+108:       <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+<div class="method">
+  <div class="title">
+    <a name="M000150"></a><b>new_constants_for</b>(frames)
+  </div>
+<div class="sourcecode">
+  <p class="source-link">[ <a href="javascript:toggleSource('M000150_source')" id="l_M000150_source">show source</a> ]</p>
+  <div id="M000150_source" class="dyn-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/active_support/dependencies.rb, line 78</span>
+78:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_constants_for</span>(<span class="ruby-identifier">frames</span>)
+79:         <span class="ruby-identifier">constants</span> = []
+80:         <span class="ruby-identifier">frames</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">mod_name</span>, <span class="ruby-identifier">prior_constants</span><span class="ruby-operator">|</span>
+81:           <span class="ruby-identifier">mod</span> = <span class="ruby-constant">Inflector</span>.<span class="ruby-identifier">constantize</span>(<span class="ruby-identifier">mod_name</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Dependencies</span>.<span class="ruby-identifier">qualified_const_defined?</span>(<span class="ruby-identifier">mod_name</span>)
+82:           <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">mod</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Module</span>)
+83: 
+84:           <span class="ruby-identifier">new_constants</span> = <span class="ruby-identifier">mod</span>.<span class="ruby-identifier">local_constant_names</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">prior_constants</span>
+85:           <span class="ruby-identifier">get</span>(<span class="ruby-identifier">mod_name</span>).<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">new_constants</span>)
+86: 
+87:           <span class="ruby-identifier">new_constants</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">suffix</span><span class="ruby-operator">|</span>
+88:             <span class="ruby-identifier">constants</span> <span class="ruby-operator">&lt;&lt;</span> ([<span class="ruby-identifier">mod_name</span>, <span class="ruby-identifier">suffix</span>] <span class="ruby-operator">-</span> [<span class="ruby-value str">&quot;Object&quot;</span>]).<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;::&quot;</span>)
+89:           <span class="ruby-keyword kw">end</span>
+90:         <span class="ruby-keyword kw">end</span>
+91:         <span class="ruby-identifier">constants</span>
+92:       <span class="ruby-keyword kw">end</span>
+</pre>
+  </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+    </body>
+</html>
