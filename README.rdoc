@@ -1,0 +1,21 @@
+Purposes:
+
+A simple library packaging and deployment with some standard constraints
+
+
+== Constraints
+
+* Library must have following layout:
+    Carat
+    lib
+       <library_name>.rb
+       <library_name>
+          ... unrestricted ...
+
+* Library naming must use underscores to represent camelcasing, and dashes to represent
+  module hierarchies.
+
+    ie:  A library that is primarily based on a module called Rack::SuperCoolExtension must be
+         called rack-super_cool_extension.
+
+* In general, a Library should not reference files from its own project that exist outside the lib folder.
