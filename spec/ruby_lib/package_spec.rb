@@ -1,12 +1,12 @@
 require 'spec_helper'
-require 'carat/package'
+require 'ruby_lib/package'
 require 'rubygems/specification'
 
-describe Carat::Package do
+describe RubyLib::Package do
   
   describe "with gemfile" do
     before do
-      @package = Carat::Package.new(File.expand_path('../../gems/rack-1.2.1.gem', __FILE__))
+      @package = RubyLib::Package.new(File.expand_path('../../gems/rack-1.2.1.gem', __FILE__))
     end
     
     it "can access gem specification" do

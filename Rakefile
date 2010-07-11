@@ -6,7 +6,7 @@ require "rake/rdoctask"
 require "rspec"
 require "rspec/core/rake_task"
 
-require "carat/version"
+require "ruby_lib/version"
 
 RSpec::Core::RakeTask.new(:spec)
 
@@ -28,7 +28,7 @@ end
 
 Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "carat #{Carat::VERSION}"
+  rdoc.title = "ruby_lib #{RubyLib::VERSION}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

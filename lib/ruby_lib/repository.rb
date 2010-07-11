@@ -1,7 +1,7 @@
-module Carat
+module RubyLib
   
   def self.repository
-    Carat::Repository.new()
+    RubyLib::Repository.new()
   end
   
   class Repository

@@ -1,6 +1,6 @@
 require 'rubygems/format'
 
-module Carat
+module RubyLib
   class Package
 
     def initialize(gem_path)
