@@ -1,4 +1,4 @@
 source :rubygems
 
 gem 'rake'
-gem 'rspec', '2.0.0.beta.14'
+gem 'rspec', '1.3.0'
