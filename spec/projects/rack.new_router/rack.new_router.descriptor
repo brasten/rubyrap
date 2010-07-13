@@ -1,0 +1,28 @@
+project:
+  name: rack.new_router
+  title: New Router
+  version: 0.1.0.snapshot
+  descriptor: |
+    A New Router for Rack
+    It does something pretty cool
+
+  homepage: www.example.org
+
+  authors:
+    - name: John Doe
+      email: johndoe@email.com
+
+    - name: Jane Doe
+      email: janedoe@email.com
+
+  dependencies:
+    - name: rack
+      version: ~ 1.1.0
+
+    - name: rake
+
+  build:
+    lib:
+      - lib
+      - lib2
+
