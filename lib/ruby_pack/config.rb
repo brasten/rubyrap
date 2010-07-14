@@ -1,4 +1,4 @@
-module RubyLib
+module RubyPack
   class Config
     
     # ripped-off from rubygems

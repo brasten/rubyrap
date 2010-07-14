@@ -6,7 +6,7 @@ require "rake/rdoctask"
 require "rspec"
 require "rspec/core/rake_task"
 
-require "ruby_lib/version"
+require "ruby_pack/version"
 
 RSpec::Core::RakeTask.new(:spec)
 
@@ -28,7 +28,7 @@ end
 
 Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "ruby_lib #{RubyLib::VERSION}"
+  rdoc.title = "ruby_pack #{RubyPack::VERSION}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

@@ -1,7 +1,7 @@
-module RubyLib
+module RubyPack
   
   def self.repository
-    RubyLib::Repository.new()
+    RubyPack::Repository.new()
   end
   
   class Repository

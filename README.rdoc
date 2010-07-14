@@ -6,7 +6,7 @@ A simple library packaging and deployment with some standard constraints
 == Constraints
 
 * Library must have following layout:
-    RubyLib
+    RubyPack
     lib
        <library_name>.rb
        <library_name>

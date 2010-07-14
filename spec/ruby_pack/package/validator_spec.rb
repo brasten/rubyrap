@@ -1,19 +1,19 @@
 require 'spec_helper'
 require 'zip/zip'
-require 'ruby_lib/package/validator'
+require 'ruby_pack/package/validator'
 
-describe 'RubyLib::Package::Validator' do
+describe 'RubyPack::Package::Validator' do
 
   describe "#validate!" do
 
     def package_name
-      'spec/artifacts/ruby_lib.test_package-0.2.0.rib'
+      'spec/artifacts/ruby_pack.test_package-0.2.0.rib'
     end
 
     def valid_descriptor
       <<-EOV
 project:
-  name: ruby_lib.test_package
+  name: ruby_pack.test_package
   title: Test Package
   version: 0.2.0.snapshot
   descriptor: |
@@ -54,7 +54,7 @@ project:
     before(:each) do
       FileUtils.rm(package_name) if File.exists?(package_name)
 
-      @validator = RubyLib::Package::Validator.new(package_name)
+      @validator = RubyPack::Package::Validator.new(package_name)
     end
 
     after(:each) do
@@ -63,13 +63,13 @@ project:
 
     it "successfully validates a valid package" do
       make_package(
-        :name => 'ruby_lib.test_package',
+        :name => 'ruby_pack.test_package',
         :package => package_name,
         :descriptor => valid_descriptor,
         :files => %w(
-          lib/ruby_lib.test_package.rb
-          lib/ruby_lib.test_package/file_one.rb
-          lib/ruby_lib.test_package/file_two.rb
+          lib/ruby_pack.test_package.rb
+          lib/ruby_pack.test_package/file_one.rb
+          lib/ruby_pack.test_package/file_two.rb
         )
       )
 
@@ -78,14 +78,14 @@ project:
 
     it "does not validate on polluted top namespace" do
       make_package(
-        :name => 'ruby_lib.test_package',
+        :name => 'ruby_pack.test_package',
         :package => package_name,
         :descriptor => valid_descriptor,
         :files => %w(
-          lib/ruby_lib.test_package.rb
+          lib/ruby_pack.test_package.rb
           lib/some_other_file.rb
-          lib/ruby_lib.test_package/file_one.rb
-          lib/ruby_lib.test_package/file_two.rb
+          lib/ruby_pack.test_package/file_one.rb
+          lib/ruby_pack.test_package/file_two.rb
         )
       )
 

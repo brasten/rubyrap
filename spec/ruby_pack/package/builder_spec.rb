@@ -1,8 +1,8 @@
 require 'spec_helper'
-require 'ruby_lib/package/builder'
-require 'ruby_lib/descriptor'
+require 'ruby_pack/package/builder'
+require 'ruby_pack/descriptor'
 
-describe 'RubyLib::Package::Builder' do
+describe 'RubyPack::Package::Builder' do
 
   describe "#package!" do
 
@@ -17,8 +17,8 @@ describe 'RubyLib::Package::Builder' do
     before(:each) do
       remove_package!
 
-      @builder = RubyLib::Package::Builder.new(
-                   RubyLib::Descriptor.from_yaml(File.read("spec/projects/rack.new_router/rack.new_router.descriptor")),
+      @builder = RubyPack::Package::Builder.new(
+                   RubyPack::Descriptor.from_yaml(File.read("spec/projects/rack.new_router/rack.new_router.descriptor")),
                    "spec/projects/rack.new_router"
                  )
 

@@ -1,6 +1,6 @@
 require 'yaml'
 
-module RubyLib
+module RubyPack
   class Descriptor
 
     class << self

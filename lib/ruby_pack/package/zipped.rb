@@ -1,8 +1,8 @@
 require 'zip/zip'
 require 'zip/zipfilesystem'
-require 'ruby_lib/package/base'
+require 'ruby_pack/package/base'
 
-module RubyLib
+module RubyPack
   module Package
 
     class Zipped < Base

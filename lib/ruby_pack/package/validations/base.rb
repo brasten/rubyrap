@@ -1,4 +1,4 @@
-module RubyLib
+module RubyPack
   module Package
     module Validations
       class Base

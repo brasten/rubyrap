@@ -1,8 +1,8 @@
 require 'spec_helper'
-require 'ruby_lib/package/zipped'
-require 'ruby_lib/descriptor'
+require 'ruby_pack/package/zipped'
+require 'ruby_pack/descriptor'
 
-describe RubyLib::Package::Zipped do
+describe RubyPack::Package::Zipped do
 
   describe "with existing package" do
 
@@ -11,7 +11,7 @@ describe RubyLib::Package::Zipped do
     end
 
     before(:each) do
-      @package = RubyLib::Package::Zipped.open(package_name)
+      @package = RubyPack::Package::Zipped.open(package_name)
     end
 
     describe "#manifest" do

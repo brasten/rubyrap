@@ -1,6 +1,6 @@
 require 'yaml'
 
-module RubyLib
+module RubyPack
   module Package
 
     # Abstract base class for packages
@@ -66,7 +66,7 @@ module RubyLib
       end
 
       def descriptor
-        @descriptor ||= RubyLib::Descriptor.from_hash(
+        @descriptor ||= RubyPack::Descriptor.from_hash(
           YAML.load(self._get_descriptor)
         )
       end

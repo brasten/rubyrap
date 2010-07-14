@@ -1,6 +1,6 @@
-require 'ruby_lib/package/zipped'
+require 'ruby_pack/package/zipped'
 
-module RubyLib
+module RubyPack
   module Package
 
     class << self
