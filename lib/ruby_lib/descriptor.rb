@@ -1,3 +1,5 @@
+require 'yaml'
+
 module RubyLib
   class Descriptor
 
@@ -5,6 +7,10 @@ module RubyLib
 
       def from_hash(hash)
         new(hash)
+      end
+
+      def from_yaml(yaml_string)
+        new(YAML.load(yaml_string))
       end
 
     end
@@ -15,7 +21,7 @@ module RubyLib
       yield(self) if block_given?
     end
 
-    def package_name
+    def default_package_name
       pkg = []
       pkg << name
       pkg << version
@@ -86,6 +92,10 @@ module RubyLib
     
     def to_hash
       {'project' => hash}
+    end
+
+    def to_yaml
+      YAML.dump(to_hash)
     end
 
 

@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'ruby_lib/package/builder'
+require 'ruby_lib/descriptor'
 
 describe 'RubyLib::Package::Builder' do
 
@@ -17,8 +18,9 @@ describe 'RubyLib::Package::Builder' do
       remove_package!
 
       @builder = RubyLib::Package::Builder.new(
-        File.expand_path('../../../projects/rack.new_router/rack.new_router.descriptor', __FILE__)
-      )
+                   RubyLib::Descriptor.from_yaml(File.read("spec/projects/rack.new_router/rack.new_router.descriptor")),
+                   "spec/projects/rack.new_router"
+                 )
 
       @builder.package!
     end

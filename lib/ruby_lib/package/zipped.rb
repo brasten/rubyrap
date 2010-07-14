@@ -9,8 +9,23 @@ module RubyLib
 
       def initialize(uri)
         super
+      end
 
+      def open
         @zip = Zip::ZipFile.open(uri)
+
+        self
+      end
+
+      def create
+        @zip = Zip::ZipFile.open(uri, Zip::ZipFile::CREATE)
+
+        self
+      end
+
+      def close
+        @zip.commit if @zip.commit_required?
+        @zip.close
       end
 
       protected

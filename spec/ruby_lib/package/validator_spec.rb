@@ -36,11 +36,11 @@ project:
       EOV
     end
 
-    def make_package(descriptor={})
-      name          = descriptor[:name]
-      package       = descriptor[:package]
-      descriptor    = descriptor[:descriptor]
-      files         = descriptor[:files]
+    def make_package(opts={})
+      name          = opts[:name]
+      package       = opts[:package]
+      descriptor    = opts[:descriptor]
+      files         = opts[:files]
 
       writer = Proc.new { |os| os.puts "Test" }
       descriptor_writer = Proc.new { |os| os.puts descriptor }

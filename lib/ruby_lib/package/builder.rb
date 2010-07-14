@@ -1,34 +1,60 @@
-require 'zip/zipfilesystem'
 require 'ruby_lib/descriptor'
+require 'ruby_lib/package'
 
 module RubyLib
   module Package
+
+    # Builder is responsible for constructing a package
+    #
     class Builder
 
-      attr_reader :descriptor_filename, :descriptor
+      # Library descriptor
+      attr_reader :descriptor
 
-      def initialize(descriptor_filename)
-        @descriptor_filename = descriptor_filename
+      # Source URI (probably a directory) from which to base
+      # relative paths in the descriptor
+      attr_reader :source_uri
 
-        my_def = YAML.load_file(self.descriptor_filename)
-        @descriptor = RubyLib::Descriptor.new(my_def['project'])
+
+      # Creates a new builder
+      #
+      # @param [Descriptor] descriptor
+      # @param [String] source_uri
+      def initialize(descriptor, source_uri)
+        @descriptor = descriptor
+        @source_uri = clean_path(source_uri)
       end
 
-      def root_dir
-        File.dirname(self.descriptor_filename)
-      end
-
+      #
       def package!
-        Zip::ZipFile.open("#{self.root_dir}/#{self.descriptor.package_name}", Zip::ZipFile::CREATE) do |zipfile|
-          @descriptor.build.lib.each do |lib_dir|
-            Dir["#{root_dir}/#{lib_dir}/**/*"].each do |lib_file|
-              file_id = lib_file.gsub(Regexp.new("^#{root_dir}/#{lib_dir}/"), "")
-              zipfile.add("lib/#{file_id}", "#{root_dir}/#{lib_dir}/#{file_id}")
+        package = Package.create("%s/%s" % [source_uri, descriptor.default_package_name])
+
+        begin
+          descriptor.build.lib.each do |lib_dir|
+            Dir[ ("%s/%s/**/*" % [source_uri, lib_dir]) ].each do |lib_file|
+              file_id     = lib_file.gsub(Regexp.new("^#{source_uri}/#{lib_dir}/"), "")
+              source_file = "#{source_uri}/#{lib_dir}/#{file_id}"
+
+              package.set_file("lib/#{file_id}", File.read(source_file)) if File.file?(source_file)
             end
           end
+        ensure
+          package.close
         end
+
       end
 
+      private
+
+      def clean_path(path)
+        path = path.dup
+
+        if path[-1..-1] == File::SEPARATOR
+          path.chop!
+        end
+
+        path
+      end
 
     end
         

@@ -4,14 +4,14 @@ require 'ruby_lib/descriptor'
 
 describe RubyLib::Package::Zipped do
 
-  describe "with zipped package" do
+  describe "with existing package" do
 
     def package_name
       File.expand_path('../../../projects/test.my_package-0.2.0.snapshot.rib', __FILE__)
     end
 
     before(:each) do
-      @package = RubyLib::Package::Zipped.new(package_name)
+      @package = RubyLib::Package::Zipped.open(package_name)
     end
 
     describe "#manifest" do

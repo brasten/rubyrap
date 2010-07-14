@@ -7,6 +7,16 @@ module RubyLib
     #
     class Base
 
+      class << self
+        def open(uri)
+          new(uri).open
+        end
+
+        def create(uri)
+          new(uri).create
+        end
+      end
+
       attr_reader   :uri
 
       def initialize(uri)
@@ -33,6 +43,18 @@ module RubyLib
 
       def descriptor_filename
         File.basename(uri).split('-').first + ".descriptor"
+      end
+
+      def open
+        raise NotImplementedError
+      end
+
+      def create
+        raise NotImplementedError
+      end
+
+      def close
+        raise NotImplementedError
       end
 
       protected
