@@ -1,6 +1,6 @@
 require 'yaml'
 
-module RubyPack
+module Rap
   class Descriptor
 
     class << self

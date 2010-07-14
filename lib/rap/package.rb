@@ -1,6 +1,6 @@
-require 'ruby_pack/package/zipped'
+require 'rap/package/zipped'
 
-module RubyPack
+module Rap
   module Package
 
     class << self

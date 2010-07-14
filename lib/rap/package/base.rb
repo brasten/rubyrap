@@ -1,6 +1,6 @@
 require 'yaml'
 
-module RubyPack
+module Rap
   module Package
 
     # Abstract base class for packages
@@ -66,7 +66,7 @@ module RubyPack
       end
 
       def descriptor
-        @descriptor ||= RubyPack::Descriptor.from_hash(
+        @descriptor ||= Rap::Descriptor.from_hash(
           YAML.load(self._get_descriptor)
         )
       end

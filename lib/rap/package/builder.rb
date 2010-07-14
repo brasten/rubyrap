@@ -1,7 +1,7 @@
-require 'ruby_pack/descriptor'
-require 'ruby_pack/package'
+require 'rap/descriptor'
+require 'rap/package'
 
-module RubyPack
+module Rap
   module Package
 
     # Builder is responsible for constructing a package

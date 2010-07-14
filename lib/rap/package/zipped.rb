@@ -1,8 +1,8 @@
 require 'zip/zip'
 require 'zip/zipfilesystem'
-require 'ruby_pack/package/base'
+require 'rap/package/base'
 
-module RubyPack
+module Rap
   module Package
 
     class Zipped < Base

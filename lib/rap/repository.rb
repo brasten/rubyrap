@@ -1,7 +1,7 @@
-module RubyPack
+module Rap
   
   def self.repository
-    RubyPack::Repository.new()
+    Rap::Repository.new()
   end
   
   class Repository

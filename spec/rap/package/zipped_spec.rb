@@ -1,8 +1,8 @@
 require 'spec_helper'
-require 'ruby_pack/package/zipped'
-require 'ruby_pack/descriptor'
+require 'rap/package/zipped'
+require 'rap/descriptor'
 
-describe RubyPack::Package::Zipped do
+describe Rap::Package::Zipped do
 
   describe "with existing package" do
 
@@ -11,7 +11,7 @@ describe RubyPack::Package::Zipped do
     end
 
     before(:each) do
-      @package = RubyPack::Package::Zipped.open(package_name)
+      @package = Rap::Package::Zipped.open(package_name)
     end
 
     describe "#manifest" do

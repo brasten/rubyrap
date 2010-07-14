@@ -1,4 +1,4 @@
-module RubyPack
+module Rap
   module Package
     module Validations
       class Base

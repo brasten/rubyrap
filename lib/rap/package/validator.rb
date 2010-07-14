@@ -1,6 +1,6 @@
 require 'zip/zipfilesystem'
 
-module RubyPack
+module Rap
   module Package
     class Validator
 

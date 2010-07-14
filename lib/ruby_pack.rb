@@ -1,5 +1,6 @@
-module RubyPack; end
+module Rap
+  ; end
 
 %w(config package repository).each do |f|
-  require File.expand_path("../ruby_pack/#{f}")
+  require File.expand_path("../rap/#{f}")
 end

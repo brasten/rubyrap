@@ -1,4 +1,4 @@
-module RubyPack
+module Rap
   class Config
     
     # ripped-off from rubygems
