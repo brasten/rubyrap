@@ -1,33 +1,53 @@
-= Purposes:
+A simple Ruby library packager.
 
-A simple Ruby library packaging and deployment with some standard constraints
+Designed for internal modular projects against an in-house server (or local
+machine), though it is potentially usable as a RubyGems replacement if a
+publicly-available host existed.
+
+
+== Goals
+
+There are a few specific goals of this project related to how Raps
+behave.
+
+* Raps must be able to co-exist with each other in the same load path!!
+  There are several situations where this is desirable.  On JRuby, for example,
+  scanning the load_path can be expensive.  If the ruby files reside on a
+  remote filesystem (or external/USB drive), scanning the load_path can be
+  extremely expensive.
+
+
 
 == Constraints
 
-* Library must have following layout:
-    <library_name>-<library-version>.rap
+The following constraints are designed to help achieve the goals stated above.
+
+* _Packaged library_ must have following layout:
+    <library_name>-<library-version>.descriptor
     lib
        <library_name>.rb
        <library_name>
           ... unrestricted ...
 
-* Library naming must use underscores to represent camelcasing, and dots to represent
-  module hierarchies.
+* Library naming must use underscores to represent camelcasing, and dots to
+  represent module hierarchies.
 
-    ie:  A library that is primarily based on a module called Rack::SuperCoolExtension must be
-         called rack.super_cool_extension.
+    ie:  A library that is primarily based on a module called
+         Rack::SuperCoolExtension must be called rack.super_cool_extension.
 
-* Naming constraints do not necessarily apply to actual module namespacing, though that would be good practice.  But
-  it is entirely possible to package up code that pollutes the global namespace or does not follow the naming
+* Naming constraints do not necessarily apply to actual module namespacing,
+  though that would be good practice.  But it is entirely possible to package
+  up code that pollutes the global namespace or does not follow the naming
   scheme you might expect from the file layout.
 
-* A library should not reference files from its own project that exist outside the lib folder.
+* A library should not reference files from its own project that exist outside
+  the lib folder.
 
 
 == WARNING
 
-This is just a pet project of mine.  It doesn't even function currently.  However, if you like the idea and feel
-like contributing, please do!
+This is just a pet project of mine.  It doesn't even function currently.
+However, if you like the idea and feel like contributing, please do!
 
 
 == Authors
