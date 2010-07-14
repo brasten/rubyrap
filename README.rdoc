@@ -1,20 +1,36 @@
-Purposes:
+= Purposes:
 
 A simple Ruby library packaging and deployment with some standard constraints
 
 == Constraints
 
 * Library must have following layout:
-    <library_name>-<library-version>.pak
+    <library_name>-<library-version>.rap
     lib
        <library_name>.rb
        <library_name>
           ... unrestricted ...
 
-* Library naming must use underscores to represent camelcasing, and dashes to represent
+* Library naming must use underscores to represent camelcasing, and dots to represent
   module hierarchies.
 
     ie:  A library that is primarily based on a module called Rack::SuperCoolExtension must be
-         called rack-super_cool_extension.
+         called rack.super_cool_extension.
 
-* In general, a Library should not reference files from its own project that exist outside the lib folder.
+* Naming constraints do not necessarily apply to actual module namespacing, though that would be good practice.  But
+  it is entirely possible to package up code that pollutes the global namespace or does not follow the naming
+  scheme you might expect from the file layout.
+
+* A library should not reference files from its own project that exist outside the lib folder.
+
+
+== WARNING
+
+This is just a pet project of mine.  It doesn't even function currently.  However, if you like the idea and feel
+like contributing, please do!
+
+
+== Authors
+
+Brasten Sager
+brasten@nagilum.com
