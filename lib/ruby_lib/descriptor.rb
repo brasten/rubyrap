@@ -10,7 +10,7 @@ module RubyLib
     end
 
     def initialize(args=nil, &block)
-      @hash = (args || {}).clone
+      @hash = args.nil? ? {} : args['project'].clone
 
       yield(self) if block_given?
     end
@@ -28,7 +28,7 @@ module RubyLib
       nil
     end
 
-    %w(name title version descriptor homepage).each do |attribute|
+    %w(name title version description homepage).each do |attribute|
       self.send(:define_method, attribute.to_sym) do
         hash[attribute.to_s]
       end
@@ -85,7 +85,7 @@ module RubyLib
     end
     
     def to_hash
-      hash
+      {'project' => hash}
     end
 
 

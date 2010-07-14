@@ -6,14 +6,33 @@ module RubyLib
     # Abstract base class for packages
     #
     class Base
+
       attr_reader   :uri
 
       def initialize(uri)
         @uri  = uri
       end
 
+      def name; descriptor.name; end
+      def title; descriptor.title; end
+      def version; descriptor.version; end
+      def description; descriptor.description; end
+      def homepage; descriptor.homepage; end
+
+      def set_file(filename, contents=nil)
+        _set_file(filename, contents)
+      end
+
+      def get_file(filename)
+        _get_file(filename)
+      end
+
       def manifest
         @manifest ||= _get_manifest
+      end
+
+      def descriptor_filename
+        File.basename(uri).split('-').first + ".descriptor"
       end
 
       protected

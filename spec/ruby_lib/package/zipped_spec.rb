@@ -1,12 +1,13 @@
 require 'spec_helper'
 require 'ruby_lib/package/zipped'
+require 'ruby_lib/descriptor'
 
-describe 'RubyLib::Package::Zipped' do
+describe RubyLib::Package::Zipped do
 
   describe "with zipped package" do
 
     def package_name
-      File.expand_path('../../../projects/rack.new_router-0.1.0.snapshot.rib', __FILE__)
+      File.expand_path('../../../projects/test.my_package-0.2.0.snapshot.rib', __FILE__)
     end
 
     before(:each) do
@@ -14,14 +15,100 @@ describe 'RubyLib::Package::Zipped' do
     end
 
     describe "#manifest" do
+      subject { @package.manifest }
+      it { should have(9).items }
+      
+      it { should include("test.my_package.descriptor") }
+      it { should include("lib/") }
+      it { should include("lib/test.my_package/") }
+      it { should include("lib/test.my_package/router/") }
+      it { should include("lib/test.my_package/router/mixin_one.rb") }
+      it { should include("lib/test.my_package/router/mixin_two.rb") }
+      it { should include("lib/test.my_package/router.rb") }
+      it { should include("lib/test.my_package/version.rb") }
+      it { should include("lib/test.my_package.rb") }
+    end
 
-      before(:each) do
-        subject = @package.manifest
+    describe "#get_file(lib/test.my_package/router/mixin_one.rb)" do
+      subject { @package.get_file('lib/test.my_package/router/mixin_one.rb') }
+
+      it {
+        should eql(<<-EOV.chop)
+module Rack
+  module Router
+    module MixinOne
+
+      def do_something
+        return false
       end
 
-      it { should include('rack.new_router.descriptor') }      
-
     end
+  end
+end
+        EOV
+      }
+    end
+
+    describe "#descriptor_filename" do
+      subject { @package.descriptor_filename }
+      it { should == "test.my_package.descriptor" }
+    end
+
+    describe "#name" do
+      subject { @package.name }
+      it { should == "test.my_package" }
+    end
+
+    describe "#title" do
+      subject { @package.title }
+      it { should == "New Package" }
+    end
+
+    describe "#version" do
+      subject { @package.version }
+      it { should == "0.2.0.snapshot" }
+    end
+
+    describe "#description" do
+      subject { @package.description }
+      it { should include('It does something pretty cool') }
+    end
+
+    describe "#homepage" do
+      subject { @package.homepage }
+      it { should == "www.example.org" }
+    end
+
+
+
+#    project:
+#      name: rack.new_router
+#      title: New Router
+#      version: 0.1.0.snapshot
+#      descriptor: |
+#        A New Router for Rack
+#        It does something pretty cool
+#
+#      homepage: www.example.org
+#
+#      authors:
+#        - name: John Doe
+#          email: johndoe@email.com
+#
+#        - name: Jane Doe
+#          email: janedoe@email.com
+#
+#      dependencies:
+#        - name: rack
+#          version: ~ 1.1.0
+#
+#        - name: rake
+#
+#      build:
+#        lib:
+#          - lib
+#          - lib2
+
 
   end
 

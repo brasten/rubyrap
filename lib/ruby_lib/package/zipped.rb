@@ -1,4 +1,5 @@
 require 'zip/zip'
+require 'zip/zipfilesystem'
 require 'ruby_lib/package/base'
 
 module RubyLib
@@ -32,7 +33,7 @@ module RubyLib
       #
       # @return [Array<String>] list of files
       def _get_manifest
-        @zip.dir.entries
+        @zip.entries.map { |e| e.name }
       end
 
       # Retrieves the contents of a file from the package
@@ -49,13 +50,6 @@ module RubyLib
       def _set_file(name, contents)
         @zip.get_output_stream(name) { |os| os.puts contents }
       end
-
-      private
-
-      def descriptor_filename
-        File.basename(uri).split('-').first + ".descriptor"        
-      end
-
 
     end
   end
