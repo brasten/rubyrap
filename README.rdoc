@@ -16,13 +16,24 @@ behave.
   remote filesystem (or external/USB drive), scanning the load_path can be
   extremely expensive.
 
+* Bundling raps (into a single folder) must eliminate the need for
+  RubyRaps itself.  Adding "vendor/raps/lib" (for example) to your application
+  LOAD_PATH must be all that's required
 
+* Rap "repositories" can be a file path or a remote server (probably
+  REST-based?)
 
-== Constraints
+* The RubyRap system should allow the application to function from an un-bundled
+  repository directly, much like RubyGems.
+
+* It would be nice if packages were in a format more conducive to manual
+  manipulation.
+
+== Constraints on Raps
 
 The following constraints are designed to help achieve the goals stated above.
 
-* _Packaged library_ must have following layout:
+* <em>Library packages</em> must have following layout:
     <library_name>-<library-version>.descriptor
     lib
        <library_name>.rb
@@ -50,7 +61,7 @@ This is just a pet project of mine.  It doesn't even function currently.
 However, if you like the idea and feel like contributing, please do!
 
 
-== Authors
+=== Authors
 
 Brasten Sager
 brasten@nagilum.com

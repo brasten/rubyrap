@@ -1,47 +1,45 @@
-require 'zip/zip'
-require 'zip/zipfilesystem'
 require 'rap/package/base'
 
 module Rap
   module Package
 
-    # Implements Rap::Package::Base interface for zipped raps.
+    # Implements Rap::Package::Base interface for folder raps.
     #
-    class Zipped < Base
+    class Folder < Base
 
       def initialize(uri)
         super
       end
 
       def open
-        @zip = Zip::ZipFile.open(uri)
+        raise NoPackageError    unless File.exists?(uri)
+        raise InvalidTypeError  unless File.directory?(uri)
 
         self
       end
 
       def create
-        @zip = Zip::ZipFile.open(uri, Zip::ZipFile::CREATE)
+        FileUtils.mkdir_p(uri)
 
         self
       end
 
       def close
-        @zip.commit if @zip.commit_required?
-        @zip.close
+        # noop
       end
 
       protected
 
       # Retrieves the descriptor from package
       #
-      # @return [Hash]
+      # @return [String]
       def _get_descriptor
         _get_file(descriptor_filename)
       end
 
       # Sets the descriptor to package
       #
-      # @param [Hash] descriptor
+      # @param [String] descriptor
       def _set_descriptor(descriptor)
         _set_file(descriptor_filename, descriptor)
       end
@@ -50,14 +48,14 @@ module Rap
       #
       # @return [Array<String>] list of files
       def _get_manifest
-        @zip.entries.map { |e| e.name }
+        Dir["#{uri}/**/*"]
       end
 
       # Retrieves the contents of a file from the package
       #
       # @return [String] contents
       def _get_file(name)
-        @zip.read(name)
+        File.read("%s/%s" % [uri, name])
       end
 
       # Sets the contents of a file from the package
@@ -65,7 +63,7 @@ module Rap
       # @param [String] name
       # @param [String] contents
       def _set_file(name, contents)
-        @zip.get_output_stream(name) { |os| os.puts contents }
+        File.open("%s/%s" % [uri, name], "w") { |io| io.write contents }
       end
 
     end

@@ -78,14 +78,14 @@ module Rap
 
       # Retrieves the descriptor from package
       #
-      # @return [Hash]
+      # @return [String]
       def _get_descriptor
         raise NotImplementedError
       end
 
       # Sets the descriptor to package
       #
-      # @param [Hash] descriptor
+      # @param [String] descriptor
       def _set_descriptor(descriptor)
         raise NotImplementedError
       end
