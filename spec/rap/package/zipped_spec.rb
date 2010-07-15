@@ -1,115 +1,55 @@
 require 'spec_helper'
 require 'rap/package/zipped'
-require 'rap/descriptor'
+require 'spec/rap/package/shared_examples'
 
-describe Rap::Package::Zipped do
+module Rap
+  module Package
 
-  describe "with existing package" do
+    describe Zipped do
 
-    def package_name
-      File.expand_path('../../../projects/test.my_package-0.2.0.snapshot.rib', __FILE__)
-    end
+      before(:each) do
+        rap = 'test.my_package-0.2.0.snapshot.rib'
+        FileUtils.rm("spec/artifacts/#{rap}") if File.exists?("spec/artifacts/#{rap}")
 
-    before(:each) do
-      @package = Rap::Package::Zipped.open(package_name)
-    end
-
-    describe "#manifest" do
-      subject { @package.manifest }
-      it { should have(9).items }
-      
-      it { should include("test.my_package.descriptor") }
-      it { should include("lib/") }
-      it { should include("lib/test.my_package/") }
-      it { should include("lib/test.my_package/router/") }
-      it { should include("lib/test.my_package/router/mixin_one.rb") }
-      it { should include("lib/test.my_package/router/mixin_two.rb") }
-      it { should include("lib/test.my_package/router.rb") }
-      it { should include("lib/test.my_package/version.rb") }
-      it { should include("lib/test.my_package.rb") }
-    end
-
-    describe "#get_file(lib/test.my_package/router/mixin_one.rb)" do
-      subject { @package.get_file('lib/test.my_package/router/mixin_one.rb') }
-
-      it {
-        should eql(<<-EOV.chop)
-module Rack
-  module Router
-    module MixinOne
-
-      def do_something
-        return false
+        FileUtils.cp("spec/projects/#{rap}", "spec/artifacts/#{rap}")
       end
 
+      after(:each) do
+        rap = 'test.my_package-0.2.0.snapshot.rib'
+        FileUtils.rm("spec/artifacts/#{rap}") if File.exists?("spec/artifacts/#{rap}")
+      end
+
+      let :package do
+        Zipped.open('spec/artifacts/test.my_package-0.2.0.snapshot.rib')
+      end
+
+      let :expected_descriptor do
+        {
+          :name => "test.my_package",
+          :title => "New Package",
+          :version => "0.2.0.snapshot",
+          :description => "It does something pretty cool",
+          :homepage => "www.example.org"
+        }
+      end
+
+      let :expected_manifest do
+        %w(
+          test.my_package.descriptor
+          lib/
+          lib/test.my_package/
+          lib/test.my_package/router/
+          lib/test.my_package/router/mixin_one.rb
+          lib/test.my_package/router/mixin_two.rb
+          lib/test.my_package/router.rb
+          lib/test.my_package/version.rb
+          lib/test.my_package.rb
+        )
+      end
+
+      it_should_behave_like "package interface"      
+
     end
-  end
-end
-        EOV
-      }
-    end
-
-    describe "#descriptor_filename" do
-      subject { @package.descriptor_filename }
-      it { should == "test.my_package.descriptor" }
-    end
-
-    describe "#name" do
-      subject { @package.name }
-      it { should == "test.my_package" }
-    end
-
-    describe "#title" do
-      subject { @package.title }
-      it { should == "New Package" }
-    end
-
-    describe "#version" do
-      subject { @package.version }
-      it { should == "0.2.0.snapshot" }
-    end
-
-    describe "#description" do
-      subject { @package.description }
-      it { should include('It does something pretty cool') }
-    end
-
-    describe "#homepage" do
-      subject { @package.homepage }
-      it { should == "www.example.org" }
-    end
-
-
-
-#    project:
-#      name: rack.new_router
-#      title: New Router
-#      version: 0.1.0.snapshot
-#      descriptor: |
-#        A New Router for Rack
-#        It does something pretty cool
-#
-#      homepage: www.example.org
-#
-#      authors:
-#        - name: John Doe
-#          email: johndoe@email.com
-#
-#        - name: Jane Doe
-#          email: janedoe@email.com
-#
-#      dependencies:
-#        - name: rack
-#          version: ~ 1.1.0
-#
-#        - name: rake
-#
-#      build:
-#        lib:
-#          - lib
-#          - lib2
-
 
   end
-
 end

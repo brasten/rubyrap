@@ -1,7 +1,7 @@
 project:
   name: test.my_package
   title: New Package
-  version: 0.2.0.snapshot
+  version: 0.3.0.snapshot
   description: |
     It does something pretty cool
 

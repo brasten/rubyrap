@@ -48,7 +48,10 @@ module Rap
       #
       # @return [Array<String>] list of files
       def _get_manifest
-        Dir["#{uri}/**/*"]
+        Dir["#{uri}/**/*"].map { |entry|
+          entry = "#{entry}/" if File.directory?(entry)
+          entry.sub(uri, "").sub(/^\//, "")
+        }
       end
 
       # Retrieves the contents of a file from the package
