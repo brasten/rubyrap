@@ -1,37 +1,43 @@
-A simple Ruby library packager.
+Another Ruby library packager
 
-Designed for internal modular projects against an in-house server (or local
-machine), though it is potentially usable as a RubyGems replacement if a
-publicly-available host existed.
+This project hopes to provide a light-weight packaging (and distribution)
+system for Ruby libraries.
 
+Implementation targets have changed several times as I have conceptually gotten
+used to ideas and decided I didn't like others.  At the moment I'm targeting 
+something similar to Java's Maven repositories ( in terms of functionality ).
 
 == Goals
 
-There are a few specific goals of this project related to how Raps
-behave.
+The problems I'm trying to solve include:
 
-* Raps must be able to co-exist with each other in the same load path!!
-  There are several situations where this is desirable.  On JRuby, for example,
-  scanning the load_path can be expensive.  If the ruby files reside on a
-  remote filesystem (or external/USB drive), scanning the load_path can be
-  extremely expensive.
+* A simple way of modularizing Ruby code and using it in other Ruby projects.
+  Initially, Rubygems seems like a fine way of doing this, but the format
+  and methods are rigid.  Also, it gets non-intuitive if you are dealing with
+  internal projects.
+  
+* RubyRap can be used as a utility on the development environment, but
+  it should be possible to run Ruby projects without requiring RubyRap.
+  RubyRap is not intended to be a runtime load_path manager.  ( Although it
+  may allow for that to ease development.  More thought is needed on that. )
 
-* Bundling raps (into a single folder) must eliminate the need for
-  RubyRaps itself.  Adding "vendor/raps/lib" (for example) to your application
-  LOAD_PATH must be all that's required
+* While I don't envision and hard constraints at the moment for Raps, I would
+  like to encourage certain standards -- perhaps through the use of validation
+  messages or something.  Soft constraints can include:
 
-* Rap "repositories" can be a file path or a remote server (probably
-  REST-based?)
-
-* The RubyRap system should allow the application to function from an un-bundled
-  repository directly, much like RubyGems.
+  * Raps should be able to co-exist with each other in the same load path!
+    
+    To that end, I'm STRONGLY in favor of the practice laid out in
+    the following post by Yehuda Katz:
+    
+    http://yehudakatz.com/2009/06/15/rubygems-problems-and-proposed-solutions
 
 * It would be nice if packages were in a format more conducive to manual
-  manipulation.
+  manipulation.  Java's JAR files are basically just zip files.
 
-== Constraints on Raps
+== (Soft?) Constraints on Raps
 
-The following constraints are designed to help achieve the goals stated above.
+The following (soft?) constraints are designed to help achieve the goals stated above.
 
 * <em>Library packages</em> must have following layout:
     <library_name>-<library-version>.descriptor
@@ -57,8 +63,9 @@ The following constraints are designed to help achieve the goals stated above.
 
 == WARNING
 
-This is just a pet project of mine.  It doesn't even function currently.
-However, if you like the idea and feel like contributing, please do!
+This is just a pet project of mine.  It doesn't even function at the moment.
+However, if you like the general idea and want to contribute code, ideals,
+or even encouragement, please fork or watch the repo or fire off an email!
 
 
 === Authors
