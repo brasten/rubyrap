@@ -1,25 +1,36 @@
-Another Ruby library packager
+== \RubyRap
 
-This project hopes to provide a light-weight packaging (and distribution)
-system for Ruby libraries.
+This project hopes to provide a light-weight project management, packaging and
+distribution system for Ruby libraries.
 
-Implementation targets have changed several times as I have conceptually gotten
-used to ideas and decided I didn't like others.  At the moment I'm targeting 
-something similar to Java's Maven repositories ( in terms of functionality ).
+This project is HIGHLY, HIGHLY experimental. Goals have changed several
+times throughout the life of this project and probably will several more
+times.
+
+At the moment, my plan is to create something that borrows (conceptually) from
+RubyGems, Bundler, Apache Ivy while avoiding some of the things about each
+that I don't like.
+
+
+== WARNING
+
+This is just a pet project of mine.  It doesn't even function at the moment.
+However, if you like the general idea and want to contribute code, ideas,
+or even encouragement, please fork or watch the repo or fire off an email!
+
 
 == Goals
 
 The problems I'm trying to solve include:
 
 * A simple way of modularizing Ruby code and using it in other Ruby projects.
-  Initially, Rubygems seems like a fine way of doing this, but the format
-  and methods are rigid.  Also, it gets non-intuitive if you are dealing with
-  internal projects.
-  
-* RubyRap can be used as a utility on the development environment, but
-  it should be possible to run Ruby projects without requiring RubyRap.
-  RubyRap is not intended to be a runtime load_path manager.  ( Although it
-  may allow for that to ease development.  More thought is needed on that. )
+  RubyGems has some limitations (and some lack of limitations) that make it
+  less than ideal in many environments. Bundler adds some capabilities but
+  inherits some of RubyGems' flaws.
+
+* A utility that handles projects, dependencies and repositories during
+  development, but is not required during runtime. \RubyRap is not intended to
+  be a runtime load_path manager.
 
 * While I don't envision and hard constraints at the moment for Raps, I would
   like to encourage certain standards -- perhaps through the use of validation
@@ -33,7 +44,8 @@ The problems I'm trying to solve include:
     http://yehudakatz.com/2009/06/15/rubygems-problems-and-proposed-solutions
 
 * It would be nice if packages were in a format more conducive to manual
-  manipulation.  Java's JAR files are basically just zip files.
+  manipulation. Java's JAR files are basically just zip files. I'm going to
+  head that direction until I see a good reason not to.
 
 == (Soft?) Constraints on Raps
 
@@ -59,13 +71,6 @@ The following (soft?) constraints are designed to help achieve the goals stated 
 
 * A library should not reference files from its own project that exist outside
   the lib folder.
-
-
-== WARNING
-
-This is just a pet project of mine.  It doesn't even function at the moment.
-However, if you like the general idea and want to contribute code, ideals,
-or even encouragement, please fork or watch the repo or fire off an email!
 
 
 === Authors

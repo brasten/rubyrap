@@ -1,0 +1,17 @@
+There are several directories here that contain fake projects and repositories
+for testing. This README explains what they are.
+
+
+=== fixtures
+
+Sample repositories in various states of validity, used for testing repository code.
+
+
+=== projects
+
+Sample projects used for testing project, dependency, and packaging code.
+
+
+=== artifacts (generated?)
+
+Artifacts generating in the course of running specs. Kind of a temp directory.
