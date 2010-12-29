@@ -5,11 +5,11 @@ require 'tempfile'
 require 'fileutils'
 require 'stringio'
 require 'zlib'
-require 'zip/stdrubyext'
-require 'zip/ioextras'
+require 'rap/vendor/zip/stdrubyext'
+require 'rap/vendor/zip/ioextras'
 
 if Tempfile.superclass == SimpleDelegator
-  require 'zip/tempfile_bugfixed'
+  require 'rap/vendor/zip/tempfile_bugfixed'
   Tempfile = BugFix::Tempfile
 end
 

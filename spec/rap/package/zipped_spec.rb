@@ -1,26 +1,28 @@
 require 'spec_helper'
 require 'rap/package/zipped'
-require 'spec/rap/package/shared_examples'
+require 'rap/package/shared_examples'
 
 module Rap
   module Package
 
     describe Zipped do
 
-      before(:each) do
-        rap = 'test.my_package-0.2.0.snapshot.rib'
-        FileUtils.rm("spec/artifacts/#{rap}") if File.exists?("spec/artifacts/#{rap}")
+      let :rap_name do
+        'test.my_package-0.2.0.snapshot.rib'
+      end
 
-        FileUtils.cp("spec/projects/#{rap}", "spec/artifacts/#{rap}")
+      before(:each) do
+        FileUtils.rm(SH.artifacts_path.join(rap_name)) if File.exists?(SH.artifacts_path.join(rap_name))
+
+        FileUtils.cp(SH.projects_path.join(rap_name), SH.artifacts_path.join(rap_name))
       end
 
       after(:each) do
-        rap = 'test.my_package-0.2.0.snapshot.rib'
-        FileUtils.rm("spec/artifacts/#{rap}") if File.exists?("spec/artifacts/#{rap}")
+        FileUtils.rm(SH.artifacts_path.join(rap_name)) if File.exists?(SH.artifacts_path.join(rap_name))
       end
 
       let :package do
-        Zipped.open('spec/artifacts/test.my_package-0.2.0.snapshot.rib')
+        Zipped.open(SH.artifacts_path.join(rap_name))
       end
 
       let :expected_descriptor do

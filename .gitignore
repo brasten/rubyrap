@@ -1,3 +1,7 @@
 .bundle
 .idea
 .rspec
+.yardoc
+doc
+projectFilesBackup
+rubyrap-*.gem

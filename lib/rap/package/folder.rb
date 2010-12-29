@@ -1,4 +1,5 @@
 require 'rap/package/base'
+require 'rap/errors'
 
 module Rap
   module Package

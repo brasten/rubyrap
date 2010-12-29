@@ -1,2 +1,11 @@
 #!/usr/bin/env ruby
+
 #
+# Copyright 2010 by Brasten Sager
+#
+
+require 'rap/cli'
+
+args = ARGV.clone
+
+Rap::CLI.start()

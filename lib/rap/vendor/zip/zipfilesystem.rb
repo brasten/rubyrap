@@ -1,4 +1,4 @@
-require 'zip/zip'
+require 'rap/vendor/zip/zip'
 
 module Zip
 

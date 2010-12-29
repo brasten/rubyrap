@@ -1,5 +1,5 @@
-require 'zip/zip'
-require 'zip/zipfilesystem'
+require 'rap/vendor/zip/zip'
+require 'rap/vendor/zip/zipfilesystem'
 require 'rap/package/base'
 
 module Rap

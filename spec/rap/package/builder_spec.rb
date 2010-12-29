@@ -7,7 +7,7 @@ describe 'Rap::Package::Builder' do
   describe "#package!" do
 
     def package_name
-      File.expand_path('../../../projects/rack.new_router/rack.new_router-0.1.0.snapshot.rib', __FILE__)
+      SH.projects_path.join('rack.new_router/rack.new_router-0.1.0.snapshot.rib')
     end
 
     def remove_package!

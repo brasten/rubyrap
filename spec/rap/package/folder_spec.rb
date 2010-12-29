@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'fileutils'
 require 'rap/package/folder'
-require 'spec/rap/package/shared_examples'
+require 'rap/package/shared_examples'
 
 
 module Rap

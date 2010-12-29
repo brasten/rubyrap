@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'zip/zip'
 require 'rap/package/validator'
 
 describe 'Rap::Package::Validator' do
@@ -62,6 +61,8 @@ project:
     end
 
     it "successfully validates a valid package" do
+      pending "Validation is not yet implemented"
+      
       make_package(
         :name => 'rap.test_package',
         :package => package_name,
@@ -77,6 +78,8 @@ project:
     end
 
     it "does not validate on polluted top namespace" do
+      pending "Validation is not yet implemented"
+      
       make_package(
         :name => 'rap.test_package',
         :package => package_name,

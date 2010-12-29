@@ -1,4 +1,4 @@
-require 'zip/zipfilesystem'
+require 'rap/vendor/zip/zipfilesystem'
 
 module Rap
   module Package
