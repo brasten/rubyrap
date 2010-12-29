@@ -40,7 +40,7 @@ The problems I'm trying to solve include:
 The following (soft?) constraints are designed to help achieve the goals stated above.
 
 * <em>Library packages</em> must have following layout:
-    <library_name>-<library-version>.descriptor
+    Rapfile
     lib
        <library_name>.rb
        <library_name>

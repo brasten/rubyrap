@@ -92,15 +92,8 @@ EOC
           @list.should == ['/repository/rack.new_router/0.1.0/lib/',
                            '/repository/rack.new_router/0.1.0/lib2/',
                            '/repository/rack.new_router/0.1.0/spec/',
-                           '/repository/rack.new_router/0.1.0/rack.new_router.descriptor']
+                           '/repository/rack.new_router/0.1.0/Rapfile']
         end
-#
-#
-#          @list.should have(4).items
-#          @list[0].should == '/repository/rack.new_router/0.1.0/lib/'
-#          @list[1].should == '/repository/rack.new_router/0.1.0/lib2/'
-#          @list[2].should == '/repository/rack.new_router/0.1.0/spec/'
-#          @list[3].should == '/repository/rack.new_router/0.1.0/rack.new_router.descriptor'
       end
     end
     

@@ -8,7 +8,7 @@ module Rap
     describe Zipped do
 
       let :rap_name do
-        'test.my_package-0.2.0.snapshot.rib'
+        'test.my_package-0.2.0.snapshot.rap'
       end
 
       before(:each) do
@@ -37,7 +37,7 @@ module Rap
 
       let :expected_manifest do
         %w(
-          test.my_package.descriptor
+          Rapfile
           lib/
           lib/test.my_package/
           lib/test.my_package/router/

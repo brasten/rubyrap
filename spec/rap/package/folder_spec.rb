@@ -37,7 +37,7 @@ module Rap
 
       let :expected_manifest do
         %w(
-          test.my_package.descriptor
+          Rapfile
           lib/
           lib/test.my_package/
           lib/test.my_package/router/

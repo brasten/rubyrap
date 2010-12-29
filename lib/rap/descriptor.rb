@@ -27,7 +27,7 @@ module Rap
       pkg << version
       pkg << platform if platform
 
-      "#{pkg.join('-')}.rib"
+      "#{pkg.join('-')}.rap"
     end
 
     def platform

@@ -43,7 +43,8 @@ module Rap
       end
 
       def descriptor_filename
-        File.basename(uri).split('-').first + ".descriptor"
+#        File.basename(uri).split('-').first + ".descriptor"
+        "Rapfile"
       end
 
       def open

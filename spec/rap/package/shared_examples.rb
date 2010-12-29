@@ -48,7 +48,7 @@ end
 
         describe "#descriptor_filename" do
           subject { package.descriptor_filename }
-          it { should == "test.my_package.descriptor" }
+          it { should == "Rapfile" }
         end
 
         describe "#name" do

@@ -7,7 +7,7 @@ describe 'Rap::Package::Builder' do
   describe "#package!" do
 
     def package_name
-      SH.projects_path.join('rack.new_router/rack.new_router-0.1.0.snapshot.rib')
+      SH.projects_path.join('rack.new_router/rack.new_router-0.1.0.snapshot.rap')
     end
 
     def remove_package!
@@ -18,14 +18,14 @@ describe 'Rap::Package::Builder' do
       remove_package!
 
       @builder = Rap::Package::Builder.new(
-                   Rap::Descriptor.from_yaml(File.read("spec/projects/rack.new_router/rack.new_router.descriptor")),
+                   Rap::Descriptor.from_yaml(File.read("spec/projects/rack.new_router/Rapfile")),
                    "spec/projects/rack.new_router"
                  )
 
       @builder.package!
     end
 
-    it "builds a rib file" do
+    it "builds a rap file" do
       File.exists?(package_name).should be_true
     end
 

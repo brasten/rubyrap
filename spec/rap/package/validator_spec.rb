@@ -6,7 +6,7 @@ describe 'Rap::Package::Validator' do
   describe "#validate!" do
 
     def package_name
-      'spec/artifacts/rap.test_package-0.2.0.rib'
+      'spec/artifacts/rap.test_package-0.2.0.rap'
     end
 
     def valid_descriptor
@@ -46,7 +46,7 @@ project:
 
       Zip::ZipFile.open(package, Zip::ZipFile::CREATE) do |zip|
         files.each { |f| zip.get_output_stream(f, &writer) }
-        zip.get_output_stream("#{name}.descriptor", &descriptor_writer)
+        zip.get_output_stream("Rapfile", &descriptor_writer)
       end
     end
 
