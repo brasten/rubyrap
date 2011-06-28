@@ -5,7 +5,7 @@ module Rap
 
     class << self
       def open(filename)
-        Package::Zipped.open(filename)
+        File::Package::Zipped.open(filename)
       end
 
       def create(filename)

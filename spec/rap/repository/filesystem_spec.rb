@@ -1,19 +1,19 @@
 require 'fileutils'
 require 'spec_helper'
-require 'rap/transport/shared_examples'
-require 'rap/transport/file'
+require 'rap/repository/shared_examples'
+require 'rap/repository/filesystem'
 
-module Rap::Transport
+module Rap::Repository
 
-  describe File, :fixtures => true do
+  describe Filesystem, :fixtures => true do
     subject {
       context_mock = mock(:context)
       context_mock.stub!(:base_uri).and_return(tmp_path.to_s)
 
-      File.new(:context => context_mock)
+      Filesystem.new(:context => context_mock)
     }
     
-    it_should_behave_like 'a Rap::Transport implementation'
+    it_should_behave_like 'a Rap::Repository implementation'
 
     describe '#exists' do
       it "returns true if file exists" do
@@ -95,6 +95,15 @@ EOC
                            '/repository/rack.new_router/0.1.0/Rapfile']
         end
       end
+    end
+
+    describe '#libs' do
+      it 'has 1 library' do
+        @libraries = subject.libraries
+
+        @libraries.should == ['rack.new_router']
+      end
+
     end
     
   end

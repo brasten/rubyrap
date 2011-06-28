@@ -7,7 +7,14 @@ module Rap
 
     desc "list", "List the available Raps"
     def list()
+      require 'rap'
+
+      repo = Rap.repository()
       puts "Listing stuff..."
+
+      repo.list('/').each do |rap|
+        puts rap
+      end
     end
   end
 end

@@ -1,13 +1,20 @@
 require 'fileutils'
 require 'pathname'
-require 'rap/transport/base'
+require 'rap/repository/base'
 
-module Rap::Transport
+module Rap::Repository
 
-  # Transport implementation for file-based repositories
+  # Repository implementation for file-based repositories
   #
-  class File < Base
-    
+  # TODO split this out into simple and complex file systems?  Simple for basic project repositories,
+  #      and complex to allow for performance enhancements, statistics, etc.
+  #
+  class Filesystem < Base
+
+    def libraries
+      list('/')
+    end
+
     def get( uri )
       ::File.read(full_path(uri))
     end

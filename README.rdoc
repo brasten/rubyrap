@@ -57,6 +57,9 @@ The following (soft?) constraints are designed to help achieve the goals stated 
        <library_name>.rb
        <library_name>
           ... unrestricted ...
+    doc (optional)
+    spec (optional)
+    test (optional)
 
 * Library naming must use underscores to represent camelcasing, and dots to
   represent module hierarchies.

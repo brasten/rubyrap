@@ -1,7 +1,7 @@
 module Rap
-  module Transport
+  module Repository
     
-    shared_examples_for 'a Rap::Transport implementation' do
+    shared_examples_for 'a Rap::Repository implementation' do
       it "responds_to :get" do
         subject.should respond_to(:get)
       end

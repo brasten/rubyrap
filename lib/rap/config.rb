@@ -17,12 +17,12 @@ module Rap
         '/etc'
       end
 
-    SYSTEM_WIDE_CONFIG_FILE = File.join system_config_path, 'rubylibrc'
+    SYSTEM_WIDE_CONFIG_FILE = File.join system_config_path, 'rubyraprc'
     
     def initialize
       
       @system_config  = load_file(SYSTEM_WIDE_CONFIG_FILE)
-      @user_config    = load_file(File.join(find_home, '.rubylibrc'))
+      @user_config    = load_file(File.join(find_home, '.rubyraprc'))
       
     end
     

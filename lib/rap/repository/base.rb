@@ -1,9 +1,9 @@
 require 'ostruct'
 
 module Rap
-  module Transport
+  module Repository
 
-    # Base interface for Rap transports
+    # Base interface for Rap repositories
     #
     class Base
    

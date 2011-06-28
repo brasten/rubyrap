@@ -1,0 +1,9 @@
+This is just a place to write down assumptions and thoughts about the project.
+
+== Definitions
+
+project::       a library in raw form, source code, etc.
+
+package::       a library in packaged form, a ZIP
+
+repository::
